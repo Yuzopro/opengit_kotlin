@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OpenGit</string>
+    <string name="app_name">OpenGit_Kotlin</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -13,4 +13,17 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+
+    <string name="label_splash">闪屏页</string>
+    <string name="label_login">登录页</string>
+
+    <string name="splash_text_app_name">OpenGit</string>
+
+    <string name="login_text_tip_1">欢迎回来！</string>
+    <string name="login_text_tip_2">请完成登录操作</string>
+    <string name="login_text_is_exist_account">是否存在账号？</string>
+    <string name="login_text_sign_up">注册</string>
+    <string name="login_text_account_hint">Github账号</string>
+    <string name="login_text_password_hint">Github密码</string>
+    <string name="login_text_account_or_password_null">输入的账号或者密码不能为空</string>
 </resources>

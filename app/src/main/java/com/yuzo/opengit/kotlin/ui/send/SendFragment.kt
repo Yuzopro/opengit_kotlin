@@ -20,7 +20,7 @@ class SendFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         sendViewModel =
-                ViewModelProviders.of(this).get(SendViewModel::class.java)
+            ViewModelProviders.of(this).get(SendViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_send, container, false)
         val textView: TextView = root.findViewById(R.id.text_send)
         sendViewModel.text.observe(this, Observer {

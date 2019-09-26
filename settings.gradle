@@ -1,2 +1,9 @@
-include ':app'
+include ':app',
+        
+        ':common_ui',
+        ':common_tool'
+
+project(':common_ui').projectDir = new File('libs/common_lib/base_ui')
+project(':common_tool').projectDir = new File('libs/common_lib/base_tool')
+
 rootProject.name='OpenGit'

@@ -1,0 +1,3 @@
+[submodule "libs/common_lib"]
+	path = libs/common_lib
+	url = https://github.com/Yuzopro/kotlin_common_lib.git
