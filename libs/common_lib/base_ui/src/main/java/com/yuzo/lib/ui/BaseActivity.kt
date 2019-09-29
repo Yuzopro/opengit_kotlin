@@ -1,11 +1,14 @@
 package com.yuzo.lib.ui
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.yuzo.lib.tool.statusBarLightMode
+import com.yuzo.lib.ui.util.setColorNoTranslucent
 import kotlinx.android.synthetic.main.activity_base_layout.*
 
 /**
@@ -22,17 +25,23 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity(), View.OnC
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        setContentView(layoutId)
+        lightStatusBar(enableLightStatusBar())
+
         val binding = DataBindingUtil.setContentView<T>(this, layoutId)
 
-        mContext = this
+        if (true) {
+            setColorNoTranslucent(this, resources.getColor(getStatusBarColor()))
+        } else {
+            immerse()
+        }
 
-//        val view = View.inflate(this, layoutId, null)
-//        fl_container?.addView(view)
+        mContext = this
 
         initData(binding)
         initView(binding)
     }
+
+    open fun enableLightStatusBar() = true
 
     open fun initData(binding: T) {}
 
@@ -78,10 +87,34 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity(), View.OnC
     open fun onClickHeaderRight() {}
 
     open fun showLoading() {
-        mLoadingDialog?.show()
+        if (!isFinishing) {
+            mLoadingDialog?.show()
+        }
     }
 
     open fun hideLoading() {
-        mLoadingDialog?.hide()
+        if (!isFinishing) {
+            mLoadingDialog?.dismiss()
+        }
     }
+
+    private fun lightStatusBar(light: Boolean) {
+        if (light && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val result = statusBarLightMode(this)
+        }
+    }
+
+    private fun immerse() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = 0
+        }
+        val decorView = window.decorView
+        val flags = decorView.systemUiVisibility
+        decorView.systemUiVisibility = flags or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+    }
+
+    protected fun getStatusBarColor(): Int {
+        return R.color.white
+    }
+
 }

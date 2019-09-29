@@ -130,17 +130,6 @@ fun isScreenLock(context: Context): Boolean {
     return km.inKeyguardRestrictedInputMode()
 }
 
-fun getStatusBarHeight(activity: Activity): Int {
-    try {
-        val rect = Rect()
-        activity.window.decorView.getWindowVisibleDisplayFrame(rect)
-        return rect.top
-    } catch (ignore: Exception) {
-    }
-
-    return -1
-}
-
 fun getNavigationBarHeight(activity: Activity): Int {
     val d = activity.windowManager.defaultDisplay
 
@@ -152,7 +141,6 @@ fun getNavigationBarHeight(activity: Activity): Int {
     d.getSize(outSize)
 
     val displayHeight = outSize.y
-    //Log.i("xxx", String.format("getNavigationBarHeight: %s %s", realHeight, displayHeight));
     var hasNavigationBar: Boolean
     val rs = activity.resources
     val id = rs.getIdentifier("config_showNavigationBar", "bool", "android")

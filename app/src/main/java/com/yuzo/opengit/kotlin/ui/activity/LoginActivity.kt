@@ -5,6 +5,7 @@ import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import com.yuzo.lib.tool.getScreenHeight
 import com.yuzo.lib.ui.BaseActivity
 import com.yuzo.opengit.kotlin.R
@@ -51,5 +52,19 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         val spannable = SpannableString(text)
         spannable.setSpan(UnderlineSpan(), 0, text.length, 0)
         tv_login_sign_up?.text = spannable
+
+        loginViewModel.loading.observe(this, Observer {
+            if (it) {
+                showLoading()
+            } else {
+                hideLoading()
+            }
+        })
+
+        loginViewModel.user.observe(this, Observer {
+            if (it != null) {
+                MainActivity.launch(this)
+            }
+        })
     }
 }

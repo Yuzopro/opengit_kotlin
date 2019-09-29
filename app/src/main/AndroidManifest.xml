@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.yuzo.opengit.kotlin">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".BaseApplication"
         android:allowBackup="false"
@@ -28,6 +30,10 @@
             android:name=".ui.activity.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <!--主页-->
+        <activity android:name=".ui.activity.MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

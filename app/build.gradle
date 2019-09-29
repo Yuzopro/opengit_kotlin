@@ -13,6 +13,11 @@ android {
         versionCode rootProject.versionCode
         versionName rootProject.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        buildConfigField "String", "CLIENT_ID", properties.getProperty("CLIENT_ID")
+        buildConfigField "String", "CLIENT_SECRET", properties.getProperty("CLIENT_SECRET")
     }
     buildTypes {
         release {
@@ -52,4 +57,6 @@ dependencies {
 
     implementation project(':common_ui')
     implementation project(':common_tool')
+    implementation project(':common_http')
+    implementation project(':common_log')
 }

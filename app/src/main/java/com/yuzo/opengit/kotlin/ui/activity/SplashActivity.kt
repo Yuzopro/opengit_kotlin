@@ -3,6 +3,7 @@ package com.yuzo.opengit.kotlin.ui.activity
 import com.yuzo.lib.ui.BaseActivity
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.databinding.ActivitySplashBinding
+import com.yuzo.opengit.kotlin.sp.userSp
 import kotlinx.android.synthetic.main.activity_splash.*
 
 /**
@@ -16,7 +17,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         super.initContainerView(binding)
 
         tv_splash_app_name?.postDelayed({
-            LoginActivity.launch(this)
+            if (userSp.isNotEmpty()) {
+                MainActivity.launch(this)
+            } else {
+                LoginActivity.launch(this)
+            }
         }, 1000L)
     }
 }
