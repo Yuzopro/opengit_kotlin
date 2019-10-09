@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.yuzo.opengit.kotlin.ui.home.HomeFragment"
+        android:name="com.yuzo.opengit.kotlin.ui.main.MainFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_main" />
 
     <fragment
         android:id="@+id/nav_gallery"

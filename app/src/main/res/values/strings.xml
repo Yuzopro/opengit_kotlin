@@ -26,4 +26,9 @@
     <string name="login_text_account_hint">Github账号</string>
     <string name="login_text_password_hint">Github密码</string>
     <string name="login_text_account_or_password_null">输入的账号或者密码不能为空</string>
+
+    <string name="home_tab_0">主页</string>
+    <string name="home_tab_1">项目</string>
+    <string name="home_tab_2">动态</string>
+    <string name="home_tab_3">问题</string>
 </resources>

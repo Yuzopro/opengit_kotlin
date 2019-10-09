@@ -3,11 +3,13 @@ include ':app',
         ':common_ui',
         ':common_tool',
         ':common_http',
-        ':common_log'
+        ':common_log',
+        ':common_imageloader'
 
 project(':common_ui').projectDir = new File('libs/common_lib/base_ui')
 project(':common_tool').projectDir = new File('libs/common_lib/base_tool')
 project(':common_http').projectDir = new File('libs/common_lib/base_http')
 project(':common_log').projectDir = new File('libs/common_lib/base_log')
+project(':common_imageloader').projectDir = new File('libs/common_lib/base_imageloader')
 
 rootProject.name='OpenGit'

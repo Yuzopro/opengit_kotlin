@@ -50,6 +50,11 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
+    implementation "androidx.viewpager2:viewpager2:$rootProject.viewpager2Version"
+//    implementation 'androidx.fragment:fragment-ktx:1.2.0-alpha04'
+    implementation "com.google.android.material:material:$rootProject.materialVersion"
+    implementation "com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:$rootProject.rxbindingVersion"
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
 
     testImplementation "junit:junit:$rootProject.junitVersion"
     androidTestImplementation "androidx.test:runner:$rootProject.runnerVersion"
@@ -59,4 +64,5 @@ dependencies {
     implementation project(':common_tool')
     implementation project(':common_http')
     implementation project(':common_log')
+    implementation project(':common_imageloader')
 }

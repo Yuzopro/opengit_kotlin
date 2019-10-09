@@ -1,5 +1,6 @@
 package com.yuzo.opengit.kotlin.ui
 
+import com.yuzo.opengit.kotlin.ui.repository.HomeRepository
 import com.yuzo.opengit.kotlin.ui.repository.LoginRepository
 
 /**
@@ -8,4 +9,6 @@ import com.yuzo.opengit.kotlin.ui.repository.LoginRepository
  */
 object RepositoryProvider {
     fun providerLoginRepository(): LoginRepository = LoginRepository.getInstance()
+
+    fun providerHomeRepository(): HomeRepository = HomeRepository.getInstance()
 }
