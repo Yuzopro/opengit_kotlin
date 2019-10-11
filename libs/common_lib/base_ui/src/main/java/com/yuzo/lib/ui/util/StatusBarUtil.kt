@@ -8,7 +8,7 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
 import com.yuzo.lib.tool.getStatusBarHeight
-import com.yuzo.lib.ui.StatusBarView
+import com.yuzo.lib.ui.view.StatusBarView
 
 /**
  * Author: yuzo

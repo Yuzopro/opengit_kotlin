@@ -3,9 +3,9 @@ package com.yuzo.opengit.kotlin.ui.viewmodel.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yuzo.opengit.kotlin.ui.repository.HomeRepository
-import com.yuzo.opengit.kotlin.ui.repository.LoginRepository
+import com.yuzo.opengit.kotlin.ui.repository.RepoRepository
 import com.yuzo.opengit.kotlin.ui.viewmodel.HomeViewModel
-import com.yuzo.opengit.kotlin.ui.viewmodel.LoginViewModel
+import com.yuzo.opengit.kotlin.ui.viewmodel.RepoViewModel
 
 /**
  * Author: yuzo

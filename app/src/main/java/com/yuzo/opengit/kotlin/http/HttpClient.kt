@@ -11,8 +11,6 @@ import retrofit2.Retrofit
  * Author: yuzo
  * Date: 2019-09-29
  */
-const val BASE_URL = "https://api.github.com/"
-
 class HttpClient : BaseHttpClient() {
     lateinit var loginService: LoginService
     lateinit var userService: UserService
@@ -22,11 +20,13 @@ class HttpClient : BaseHttpClient() {
         userService = retrofit.create(UserService::class.java)
     }
 
-    override fun getAuthInterceptor(): Interceptor = BasicAuthInterceptor()
+    override fun getAuthInterceptor(): Interceptor? = BasicAuthInterceptor()
 
     override fun getBaseUrl(): String = BASE_URL
 
     companion object {
+        const val BASE_URL = "https://api.github.com/"
+
         @Volatile
         private var instance: HttpClient? = null
 

@@ -12,4 +12,4 @@ project(':common_http').projectDir = new File('libs/common_lib/base_http')
 project(':common_log').projectDir = new File('libs/common_lib/base_log')
 project(':common_imageloader').projectDir = new File('libs/common_lib/base_imageloader')
 
-rootProject.name='OpenGit'
+rootProject.name='OpenGit_Kotlin'

@@ -1,7 +1,7 @@
 package com.yuzo.opengit.kotlin.http.service
 
 import com.yuzo.opengit.kotlin.http.service.bean.LoginRequest
-import com.yuzo.opengit.kotlin.http.service.bean.LoginResponse
+import com.yuzo.opengit.kotlin.http.service.bean.Login
 import io.reactivex.Observable
 import retrofit2.http.Body
 import retrofit2.http.Headers
@@ -16,5 +16,5 @@ interface LoginService {
     @Headers("Accept: application/json")
     fun authorizations(
         @Body request: LoginRequest
-    ): Observable<LoginResponse>
+    ): Observable<Login>
 }

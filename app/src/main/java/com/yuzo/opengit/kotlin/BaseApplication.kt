@@ -3,6 +3,7 @@ package com.yuzo.opengit.kotlin
 import androidx.multidex.MultiDexApplication
 import com.yuzo.lib.tool.ToastUtil
 import com.yuzo.opengit.kotlin.http.HttpClient
+import com.yuzo.opengit.kotlin.http.HttpClient2
 
 /**
  * Author: yuzo
@@ -15,6 +16,7 @@ class BaseApplication : MultiDexApplication() {
         INSTANCE = this
 
         HttpClient.getInstance().init()
+        HttpClient2.getInstance().init()
 
         ToastUtil.init(this)
     }

@@ -1,58 +1,78 @@
 package com.yuzo.opengit.kotlin.ui.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
+import android.widget.TextView
+import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
+import com.yuzo.lib.ui.adapter.BasePagedListAdapter
+import com.yuzo.lib.ui.adapter.BaseViewHolder
 import com.yuzo.opengit.kotlin.databinding.ListItemHomeBinding
+import com.yuzo.opengit.kotlin.http.service.bean.Entrylist
+import com.yuzo.opengit.kotlin.http.service.bean.Tag
 
 /**
  * Author: yuzo
- * Date: 2019-10-08
+ * Date: 2019-10-11
  */
-class ListAdapter constructor(private val context: Context) :
-    PagedListAdapter<String, ListViewHolder>(diffCallback) {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        return ListViewHolder(
+class HomeAdapter :
+    BasePagedListAdapter<Entrylist, ListItemHomeBinding, HomeViewHolder>(diffCallback) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
+        return HomeViewHolder(
             ListItemHomeBinding.inflate(
-                LayoutInflater.from(context),
+                LayoutInflater.from(parent.context),
                 parent,
                 false
             )
         )
     }
 
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val title = getItem(position)
-        holder.apply {
-            bind(title!!)
-        }
-    }
-
     companion object {
-        private val diffCallback: DiffUtil.ItemCallback<String> =
-            object : DiffUtil.ItemCallback<String>() {
+        private val diffCallback: DiffUtil.ItemCallback<Entrylist> =
+            object : DiffUtil.ItemCallback<Entrylist>() {
 
-                override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-                    return oldItem == newItem
+                override fun areItemsTheSame(
+                    oldItem: Entrylist,
+                    newItem: Entrylist
+                ): Boolean {
+                    return oldItem.objectId == newItem.objectId
                 }
 
-                override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-                    return oldItem == newItem
+                override fun areContentsTheSame(
+                    oldItem: Entrylist,
+                    newItem: Entrylist
+                ): Boolean {
+                    return oldItem.equals(newItem)
                 }
             }
     }
 }
 
-class ListViewHolder(private val binding: ListItemHomeBinding) :
-    RecyclerView.ViewHolder(binding.root) {
-    fun bind(item : String) {
+class HomeViewHolder(private val binding: ListItemHomeBinding) :
+    BaseViewHolder<Entrylist, ListItemHomeBinding>(binding) {
+    override fun bind(item: Entrylist) {
         binding.apply {
-            title = item
+            this.item = item
             executePendingBindings()
         }
     }
+}
+
+@BindingAdapter("home_tag")
+fun bindHomeTag(view: TextView, tags: List<Tag>?) {
+    view.text = getTags(tags)
+}
+
+private fun getTags(tags: List<Tag>?): String {
+    var tag = ""
+    if (tags != null && tags.isNotEmpty()) {
+        var size = tags.size
+        if (size > 2) {
+            size = 2
+        }
+        for (i in 0 until size) {
+            tag += tags[i].title + "/"
+        }
+    }
+    return tag
 }

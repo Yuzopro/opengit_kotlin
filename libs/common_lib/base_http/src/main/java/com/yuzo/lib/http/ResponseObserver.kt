@@ -35,6 +35,8 @@ abstract class ResponseObserver<T> : Observer<T> {
             e.apply {
                 onError(code(), message())
             }
+        } else {
+            onError(-1, e.message?:" unknown error")
         }
     }
 

@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.yuzo.opengit.kotlin.ui.main.MainFragment" />
+            type="com.yuzo.opengit.kotlin.ui.fragment.MainFragment" />
 
         <variable
             name="activity"

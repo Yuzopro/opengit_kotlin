@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.yuzo.opengit.kotlin.http.service.bean.Repo" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_repo_first_column"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_repo_avatar"
+                    android:layout_width="@dimen/list_item_avatar_size"
+                    android:layout_height="@dimen/list_item_avatar_size"
+                    android:contentDescription="@null"
+                    app:image_url="@{item.owner.avatarUrl}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/icon_github" />
+
+                <TextView
+                    android:id="@+id/tv_repo_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@{item.owner.login}"
+                    android:textColor="@color/color_title"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_repo_avatar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Yuzopro" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_repo_language_color"
+                    android:layout_width="7dp"
+                    android:layout_height="7dp"
+                    android:layout_marginEnd="4dp"
+                    android:contentDescription="@null"
+                    app:language_color="@{item.language}"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_repo_language"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_repo_language"
+                    app:layout_constraintTop_toTopOf="@+id/tv_repo_language"
+                    tools:src="@color/color_sub_title" />
+
+                <TextView
+                    android:id="@+id/tv_repo_language"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.language}"
+                    android:textColor="@color/color_sub_title"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Kotlin" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_repo_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:singleLine="true"
+                android:text="@{item.full_name}"
+                android:textColor="@color/color_title"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_repo_first_column"
+                tools:text="Yuzopro/OpenGit_Kotlin" />
+
+            <TextView
+                android:id="@+id/tv_repo_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@{item.description}"
+                android:textColor="@color/color_sub_title"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repo_name"
+                tools:text="The MVVM Architecture in Android（MVVM+Jetpack架构的Github客户端，开发中）." />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_repo_last_column"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repo_desc">
+
+                <ImageView
+                    android:id="@+id/iv_repo_star"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:contentDescription="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_star"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_repo_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="@{String.valueOf(item.stargazers_count)}"
+                    android:textColor="@color/color_sub_title"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_repo_star"
+                    app:layout_constraintStart_toEndOf="@+id/iv_repo_star"
+                    app:layout_constraintTop_toTopOf="@+id/iv_repo_star"
+                    tools:text="502" />
+
+                <ImageView
+                    android:id="@+id/iv_repo_issue"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_marginStart="12dp"
+                    android:contentDescription="@null"
+                    android:paddingTop="1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_issue"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_repo_star"
+                    app:layout_constraintStart_toEndOf="@+id/tv_repo_star"
+                    app:layout_constraintTop_toTopOf="@+id/tv_repo_star" />
+
+                <TextView
+                    android:id="@+id/tv_repo_issue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="@{String.valueOf(item.open_issues_count)}"
+                    android:textColor="@color/color_sub_title"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_repo_issue"
+                    app:layout_constraintStart_toEndOf="@+id/iv_repo_issue"
+                    app:layout_constraintTop_toTopOf="@+id/iv_repo_issue"
+                    tools:text="6" />
+
+                <ImageView
+                    android:id="@+id/iv_repo_fork"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_marginStart="12dp"
+                    android:contentDescription="@null"
+                    android:paddingTop="1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_fork"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_repo_issue"
+                    app:layout_constraintStart_toEndOf="@+id/tv_repo_issue"
+                    app:layout_constraintTop_toTopOf="@+id/tv_repo_issue" />
+
+                <TextView
+                    android:id="@+id/tv_repo_fork"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="@{String.valueOf(item.forks_count)}"
+                    android:textColor="@color/color_sub_title"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_repo_fork"
+                    app:layout_constraintStart_toEndOf="@+id/iv_repo_fork"
+                    app:layout_constraintTop_toTopOf="@+id/iv_repo_fork"
+                    tools:text="88" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

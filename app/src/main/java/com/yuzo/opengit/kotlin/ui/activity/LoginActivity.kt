@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.yuzo.lib.tool.getScreenHeight
-import com.yuzo.lib.ui.BaseActivity
+import com.yuzo.lib.ui.activity.BaseActivity
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.databinding.ActivityLoginBinding
 import com.yuzo.opengit.kotlin.ui.AppViewModelProvider

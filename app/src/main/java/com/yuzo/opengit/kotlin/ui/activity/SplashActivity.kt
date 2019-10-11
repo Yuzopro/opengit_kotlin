@@ -1,6 +1,6 @@
 package com.yuzo.opengit.kotlin.ui.activity
 
-import com.yuzo.lib.ui.BaseActivity
+import com.yuzo.lib.ui.activity.BaseActivity
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.databinding.ActivitySplashBinding
 import com.yuzo.opengit.kotlin.sp.userSp

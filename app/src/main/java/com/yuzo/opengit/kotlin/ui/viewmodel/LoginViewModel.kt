@@ -5,11 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.yuzo.lib.http.ResponseObserver
-import com.yuzo.lib.tool.ToastUtil
 import com.yuzo.lib.tool.ToastUtil.showShort
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.common.SimpleTextWatcher
-import com.yuzo.opengit.kotlin.http.service.bean.UserResponse
+import com.yuzo.opengit.kotlin.http.service.bean.User
 import com.yuzo.opengit.kotlin.sp.userSp
 import com.yuzo.opengit.kotlin.ui.repository.LoginRepository
 
@@ -25,7 +24,7 @@ class LoginViewModel constructor(private val repository: LoginRepository) : View
     val account = MutableLiveData<String>("")
     val password = MutableLiveData<String>("")
     val loading = MutableLiveData<Boolean>(false)
-    val user = MutableLiveData<UserResponse>(null)
+    val user = MutableLiveData<User>(null)
 
     val accountWatcher = object : SimpleTextWatcher() {
         override fun afterTextChanged(s: Editable) {
@@ -54,8 +53,8 @@ class LoginViewModel constructor(private val repository: LoginRepository) : View
                 val account = account.value!!
                 val password = password.value!!
 
-                repository.login(account, password, object : ResponseObserver<UserResponse>() {
-                    override fun onSuccess(response: UserResponse?) {
+                repository.login(account, password, object : ResponseObserver<User>() {
+                    override fun onSuccess(response: User?) {
                         loading.value = false
 
                         userSp = Gson().toJson(response)

@@ -1,25 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="title"
-            type="String" />
+            name="item"
+            type="com.yuzo.opengit.kotlin.http.service.bean.Entrylist" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp">
 
-        <TextView
-            android:id="@+id/tv_list_title"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:text="@{title}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_home_first_column"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_home_avatar"
+                    android:layout_width="@dimen/list_item_avatar_size"
+                    android:layout_height="@dimen/list_item_avatar_size"
+                    android:contentDescription="@null"
+                    app:image_url="@{item.user.avatarLarge}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/icon_github" />
+
+                <TextView
+                    android:id="@+id/tv_home_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@{item.user.username}"
+                    android:textColor="@color/color_title"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_home_avatar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Yuzopro" />
+
+                <TextView
+                    android:id="@+id/tv_home_language"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_sub_title"
+                    android:textSize="12sp"
+                    app:home_tag="@{item.tags}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Kotlin" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_home_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:singleLine="true"
+                android:text="@{item.title}"
+                android:textColor="@color/color_title"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_home_first_column"
+                tools:text="Yuzopro/OpenGit_Kotlin" />
+
+            <TextView
+                android:id="@+id/tv_home_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@{item.content}"
+                android:textColor="@color/color_sub_title"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_home_name"
+                tools:text="The MVVM Architecture in Android（MVVM+Jetpack架构的Github客户端，开发中）." />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_home_last_column"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_home_desc">
+
+                <ImageView
+                    android:id="@+id/iv_home_collection"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:contentDescription="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_star"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_home_collection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="@{String.valueOf(item.collectionCount)}"
+                    android:textColor="@color/color_sub_title"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_home_collection"
+                    app:layout_constraintStart_toEndOf="@+id/iv_home_collection"
+                    app:layout_constraintTop_toTopOf="@+id/iv_home_collection"
+                    tools:text="502" />
+
+                <ImageView
+                    android:id="@+id/iv_home_comment"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_marginStart="12dp"
+                    android:contentDescription="@null"
+                    android:paddingTop="1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_comment"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_home_collection"
+                    app:layout_constraintStart_toEndOf="@+id/tv_home_collection"
+                    app:layout_constraintTop_toTopOf="@+id/tv_home_collection" />
+
+                <TextView
+                    android:id="@+id/tv_home_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="@{String.valueOf(item.commentsCount)}"
+                    android:textColor="@color/color_sub_title"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_home_comment"
+                    app:layout_constraintStart_toEndOf="@+id/iv_home_comment"
+                    app:layout_constraintTop_toTopOf="@+id/iv_home_comment"
+                    tools:text="6" />
+
+                <ImageView
+                    android:id="@+id/iv_home_view"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_marginStart="12dp"
+                    android:contentDescription="@null"
+                    android:paddingTop="1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_view"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_home_comment"
+                    app:layout_constraintStart_toEndOf="@+id/tv_home_comment"
+                    app:layout_constraintTop_toTopOf="@+id/tv_home_comment" />
+
+                <TextView
+                    android:id="@+id/tv_home_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="@{String.valueOf(item.viewsCount)}"
+                    android:textColor="@color/color_sub_title"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_home_view"
+                    app:layout_constraintStart_toEndOf="@+id/iv_home_view"
+                    app:layout_constraintTop_toTopOf="@+id/iv_home_view"
+                    tools:text="88" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 </layout>

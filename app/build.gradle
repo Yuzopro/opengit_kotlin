@@ -42,6 +42,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlinVersion"
     implementation "androidx.multidex:multidex:$rootProject.multidexVersion"
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+    implementation "androidx.cardview:cardview:$rootProject.cardviewVersion"
     implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
     implementation "com.google.android.material:material:$rootProject.materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
@@ -53,8 +54,8 @@ dependencies {
     implementation "androidx.viewpager2:viewpager2:$rootProject.viewpager2Version"
 //    implementation 'androidx.fragment:fragment-ktx:1.2.0-alpha04'
     implementation "com.google.android.material:material:$rootProject.materialVersion"
-    implementation "com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:$rootProject.rxbindingVersion"
     implementation "androidx.paging:paging-runtime:$pagingVersion"
+    implementation "de.hdodenhof:circleimageview:$circleImageviewVersion"
 
     testImplementation "junit:junit:$rootProject.junitVersion"
     androidTestImplementation "androidx.test:runner:$rootProject.runnerVersion"

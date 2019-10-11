@@ -1,33 +1,66 @@
 package com.yuzo.opengit.kotlin.ui.paging
 
-import androidx.paging.PositionalDataSource
+import com.yuzo.lib.http.ResponseObserver
 import com.yuzo.lib.log.v
+import com.yuzo.lib.tool.ToastUtil
+import com.yuzo.lib.ui.paging.BasePositionalDataSource
+import com.yuzo.opengit.kotlin.http.service.bean.Entrylist
+import com.yuzo.opengit.kotlin.http.service.bean.Home
+import com.yuzo.opengit.kotlin.ui.repository.HomeRepository
 
 /**
  * Author: yuzo
  * Date: 2019-10-09
  */
-class HomeDataSource : PositionalDataSource<String>() {
-    override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<String>) {
-        val requestedLoadSize = params.requestedLoadSize
-        v(TAG, "loadInitial requestedLoadSize is ${requestedLoadSize}")
-        callback.onResult(getSubList(0, requestedLoadSize), 0)
+class HomeDataSource constructor(private val repository: HomeRepository) :
+    BasePositionalDataSource<Entrylist>() {
+
+    override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Entrylist>) {
+        v(TAG, "loadInitial")
+
+        showLoading()
+
+        val pageSize = params.requestedLoadSize
+        repository.queryHomes(1, pageSize, object : ResponseObserver<Home>() {
+            override fun onSuccess(response: Home?) {
+                response?.apply {
+                    v(TAG, "loadInitial list size is ${d.entrylist.size}")
+
+                    callback.onResult(d.entrylist, 0)
+                }
+
+                if (response == null || response.d.entrylist.isEmpty()) {
+                    showEmptyView()
+                } else {
+                    hideLoading()
+                }
+            }
+
+            override fun onError(code: Int, message: String) {
+                ToastUtil.showShort(message)
+                showErrorView()
+            }
+        })
     }
 
-    override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<String>) {
-        v(TAG, "loadRange startPosition is ${params.startPosition}@loadSize is ${params.loadSize}")
-        callback.onResult(getSubList(params.startPosition, params.loadSize))
-    }
+    override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Entrylist>) {
+        v(TAG, "loadRange")
 
-    fun getSubList(start: Int, end: Int): List<String> {
-        val strings = ArrayList<String>()
-        for (i in 0 until end) {
-            strings.add("$start -->$i")
-        }
-        return strings
+        val page = params.startPosition / params.loadSize
+        repository.queryHomes(page, params.loadSize, object : ResponseObserver<Home>() {
+            override fun onSuccess(response: Home?) {
+                response?.apply {
+                    callback.onResult(d.entrylist)
+                }
+            }
+
+            override fun onError(code: Int, message: String) {
+                ToastUtil.showShort(message)
+            }
+        })
     }
 
     companion object {
-        const val TAG = "HomeDataSource"
+        private const val TAG = "HomeDataSource"
     }
 }
