@@ -12,9 +12,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.yuzo.lib.ui.adapter.BasePagedListAdapter
+import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.adapter.BaseViewHolder
 import com.yuzo.opengit.kotlin.databinding.ListItemEventBinding
+import com.yuzo.opengit.kotlin.databinding.ListItemHomeBinding
 import com.yuzo.opengit.kotlin.http.service.bean.Event
 import com.yuzo.opengit.kotlin.http.service.bean.Type
 
@@ -22,16 +23,24 @@ import com.yuzo.opengit.kotlin.http.service.bean.Type
  * Author: yuzo
  * Date: 2019-10-11
  */
-class EventAdapter :
-    BasePagedListAdapter<Event, ListItemEventBinding, EventViewHolder>(diffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-        return EventViewHolder(
-            ListItemEventBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+class EventAdapter : BasePagedAdapter<Event>(diffCallback) {
+    private var mBinding: ListItemEventBinding? = null
+
+    override fun getView(parent: ViewGroup, viewType: Int): View {
+        mBinding = ListItemEventBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
         )
+
+        return mBinding!!.root
+    }
+
+    override fun setItem(holder: BaseViewHolder, item: Event?, position: Int) {
+        mBinding?.apply {
+            this.item = item
+            executePendingBindings()
+        }
     }
 
     companion object {
@@ -51,21 +60,6 @@ class EventAdapter :
                     return oldItem.equals(newItem)
                 }
             }
-    }
-}
-
-class EventViewHolder(private val binding: ListItemEventBinding) :
-    BaseViewHolder<Event, ListItemEventBinding>(binding) {
-
-    override fun bind(item: Event) {
-        binding.apply {
-            this.item = item
-            executePendingBindings()
-        }
-    }
-
-    companion object {
-        private const val TAG = "RepoViewHolder"
     }
 }
 

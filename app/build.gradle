@@ -56,6 +56,7 @@ dependencies {
     implementation "com.google.android.material:material:$rootProject.materialVersion"
     implementation "androidx.paging:paging-runtime:$pagingVersion"
     implementation "de.hdodenhof:circleimageview:$circleImageviewVersion"
+    implementation 'com.lxj:xpopup:1.8.10-x'
 
     testImplementation "junit:junit:$rootProject.junitVersion"
     androidTestImplementation "androidx.test:runner:$rootProject.runnerVersion"

@@ -42,18 +42,21 @@ class RepoDataSource constructor(private val repository: RepoRepository) :
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Repo>) {
         v(TAG, "loadRange")
 
-        val page = params.startPosition / params.loadSize
-        repository.queryRepos(page, params.loadSize, object : ResponseObserver<List<Repo>>() {
-            override fun onSuccess(response: List<Repo>?) {
-                response?.apply {
-                    callback.onResult(this)
+        val index = params.startPosition % params.loadSize
+        if (index == 0) {
+            val page = params.startPosition / params.loadSize
+            repository.queryRepos(page, params.loadSize, object : ResponseObserver<List<Repo>>() {
+                override fun onSuccess(response: List<Repo>?) {
+                    response?.apply {
+                        callback.onResult(this)
+                    }
                 }
-            }
 
-            override fun onError(code: Int, message: String) {
-                ToastUtil.showShort(message)
-            }
-        })
+                override fun onError(code: Int, message: String) {
+                    ToastUtil.showShort(message)
+                }
+            })
+        }
     }
 
     companion object {

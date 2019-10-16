@@ -1,13 +1,7 @@
 package com.yuzo.opengit.kotlin.ui
 
-import com.yuzo.opengit.kotlin.ui.repository.EventRepository
-import com.yuzo.opengit.kotlin.ui.repository.HomeRepository
-import com.yuzo.opengit.kotlin.ui.repository.RepoRepository
-import com.yuzo.opengit.kotlin.ui.repository.LoginRepository
-import com.yuzo.opengit.kotlin.ui.viewmodel.factory.EventViewModelFactory
-import com.yuzo.opengit.kotlin.ui.viewmodel.factory.HomeViewModelFactory
-import com.yuzo.opengit.kotlin.ui.viewmodel.factory.RepoViewModelFactory
-import com.yuzo.opengit.kotlin.ui.viewmodel.factory.LoginViewModelFactory
+import com.yuzo.opengit.kotlin.ui.repository.*
+import com.yuzo.opengit.kotlin.ui.viewmodel.factory.*
 
 /**
  * Author: yuzo
@@ -32,5 +26,10 @@ object AppViewModelProvider {
     fun providerEventModel(): EventViewModelFactory {
         val repository: EventRepository = RepositoryProvider.providerEventRepository()
         return EventViewModelFactory(repository)
+    }
+
+    fun providerIssueModel(): IssueViewModelFactory {
+        val repository: IssueRepository = RepositoryProvider.providerIssueRepository()
+        return IssueViewModelFactory(repository)
     }
 }

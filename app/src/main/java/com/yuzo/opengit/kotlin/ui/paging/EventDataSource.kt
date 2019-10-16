@@ -43,18 +43,21 @@ class EventDataSource constructor(private val repository: EventRepository) :
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Event>) {
         v(TAG, "loadRange")
 
-        val page = params.startPosition / params.loadSize
-        repository.queryEvents(page, params.loadSize, object : ResponseObserver<List<Event>>() {
-            override fun onSuccess(response: List<Event>?) {
-                response?.apply {
-                    callback.onResult(this)
+        val index = params.startPosition % params.loadSize
+        if (index == 0) {
+            val page = params.startPosition / params.loadSize
+            repository.queryEvents(page, params.loadSize, object : ResponseObserver<List<Event>>() {
+                override fun onSuccess(response: List<Event>?) {
+                    response?.apply {
+                        callback.onResult(this)
+                    }
                 }
-            }
 
-            override fun onError(code: Int, message: String) {
-                ToastUtil.showShort(message)
-            }
-        })
+                override fun onError(code: Int, message: String) {
+                    ToastUtil.showShort(message)
+                }
+            })
+        }
     }
 
     companion object {

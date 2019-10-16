@@ -2,11 +2,9 @@ package com.yuzo.opengit.kotlin.ui.fragment
 
 import androidx.fragment.app.viewModels
 import com.yuzo.lib.ui.fragment.BaseRefreshFragment
-import com.yuzo.opengit.kotlin.databinding.ListItemHomeBinding
 import com.yuzo.opengit.kotlin.http.service.bean.Entrylist
 import com.yuzo.opengit.kotlin.ui.AppViewModelProvider
 import com.yuzo.opengit.kotlin.ui.adapter.HomeAdapter
-import com.yuzo.opengit.kotlin.ui.adapter.HomeViewHolder
 import com.yuzo.opengit.kotlin.ui.paging.HomeDataSource
 import com.yuzo.opengit.kotlin.ui.viewmodel.HomeViewModel
 
@@ -15,8 +13,7 @@ import com.yuzo.opengit.kotlin.ui.viewmodel.HomeViewModel
  * Author: yuzo
  * Date: 2019-09-30
  */
-class HomeFragment :
-    BaseRefreshFragment<Entrylist, ListItemHomeBinding, HomeViewHolder, HomeAdapter, HomeDataSource>() {
+class HomeFragment : BaseRefreshFragment<Entrylist, HomeAdapter, HomeDataSource>() {
 
     override var mAdapter: HomeAdapter = HomeAdapter()
 

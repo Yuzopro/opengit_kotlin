@@ -1,11 +1,10 @@
 package com.yuzo.lib.ui.fragment
 
 import android.view.View
-import androidx.databinding.ViewDataBinding
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.yuzo.lib.ui.R
-import com.yuzo.lib.ui.adapter.BasePagedListAdapter
-import com.yuzo.lib.ui.adapter.BaseViewHolder
+import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.databinding.BaseRefreshLayoutBinding
 import com.yuzo.lib.ui.paging.BasePositionalDataSource
 import com.yuzo.lib.ui.paging.LoadingState
@@ -16,7 +15,7 @@ import kotlinx.android.synthetic.main.base_refresh_layout.*
  * Author: yuzo
  * Date: 2019-10-10
  */
-abstract class BaseRefreshFragment<T, B : ViewDataBinding, VH : BaseViewHolder<T, B>, A : BasePagedListAdapter<T, B, VH>, P : BasePositionalDataSource<T>> :
+abstract class BaseRefreshFragment<T, A : BasePagedAdapter<T>, P : BasePositionalDataSource<T>> :
     BaseFragment<BaseRefreshLayoutBinding>() {
 
     abstract var mAdapter: A
@@ -57,10 +56,25 @@ abstract class BaseRefreshFragment<T, B : ViewDataBinding, VH : BaseViewHolder<T
     override fun initView() {
         super.initView()
 
+        addFixView(getFixView(cl_fix_layout))
+
         rv_list.adapter = mAdapter
 
         swipe_refresh_layout.setOnRefreshListener {
             mViewModel.onRefresh()
+        }
+    }
+
+    open fun getFixView(parent: ViewGroup): View? {
+        return null
+    }
+
+    private fun addFixView(view: View?) {
+        if (view != null) {
+            cl_fix_layout.addView(view)
+            cl_fix_layout.visibility = View.VISIBLE
+        } else {
+            cl_fix_layout.visibility = View.GONE
         }
     }
 
@@ -80,7 +94,7 @@ abstract class BaseRefreshFragment<T, B : ViewDataBinding, VH : BaseViewHolder<T
         cl_exception?.visibility = View.GONE
     }
 
-    companion object{
+    companion object {
         private const val TAG = "BaseRefreshFragment"
     }
 }

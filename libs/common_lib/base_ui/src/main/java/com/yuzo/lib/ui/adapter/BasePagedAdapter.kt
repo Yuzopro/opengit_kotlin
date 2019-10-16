@@ -1,9 +1,10 @@
 package com.yuzo.lib.ui.adapter
 
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.databinding.ViewDataBinding
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.yuzo.lib.image.load
@@ -14,13 +15,21 @@ import com.yuzo.lib.tool.transTimeStamp
  * Author: yuzo
  * Date: 2019-10-10
  */
-abstract class BasePagedListAdapter<T, B : ViewDataBinding, VH : BaseViewHolder<T, B>>(callback: DiffUtil.ItemCallback<T>) :
-    PagedListAdapter<T, VH>(callback) {
+abstract class BasePagedAdapter<T>(callback: DiffUtil.ItemCallback<T>) :
+    PagedListAdapter<T, BaseViewHolder>(callback) {
 
-    override fun onBindViewHolder(holder: VH, position: Int) {
+    abstract fun getView(parent: ViewGroup, viewType: Int): View
+
+    abstract fun setItem(holder: BaseViewHolder, item: T?, position: Int)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+        return BaseViewHolder(getView(parent, viewType))
+    }
+
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         val item = getItem(position)
         holder.apply {
-            bind(item!!)
+            setItem(this, item, position)
         }
     }
 }

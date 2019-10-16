@@ -24,8 +24,6 @@ class HomeDataSource constructor(private val repository: HomeRepository) :
         repository.queryHomes(1, pageSize, object : ResponseObserver<Home>() {
             override fun onSuccess(response: Home?) {
                 response?.apply {
-                    v(TAG, "loadInitial list size is ${d.entrylist.size}")
-
                     callback.onResult(d.entrylist, 0)
                 }
 
@@ -46,18 +44,21 @@ class HomeDataSource constructor(private val repository: HomeRepository) :
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Entrylist>) {
         v(TAG, "loadRange")
 
-        val page = params.startPosition / params.loadSize
-        repository.queryHomes(page, params.loadSize, object : ResponseObserver<Home>() {
-            override fun onSuccess(response: Home?) {
-                response?.apply {
-                    callback.onResult(d.entrylist)
+        val index = params.startPosition % params.loadSize
+        if (index == 0) {
+            val page = params.startPosition / params.loadSize
+            repository.queryHomes(page, params.loadSize, object : ResponseObserver<Home>() {
+                override fun onSuccess(response: Home?) {
+                    response?.apply {
+                        callback.onResult(d.entrylist)
+                    }
                 }
-            }
 
-            override fun onError(code: Int, message: String) {
-                ToastUtil.showShort(message)
-            }
-        })
+                override fun onError(code: Int, message: String) {
+                    ToastUtil.showShort(message)
+                }
+            })
+        }
     }
 
     companion object {

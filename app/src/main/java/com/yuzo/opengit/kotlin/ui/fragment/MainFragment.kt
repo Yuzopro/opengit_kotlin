@@ -30,10 +30,13 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             override fun createFragment(position: Int): Fragment {
                 if (position == 0) {
                     return HomeFragment()
+                } else if (position == 1) {
+                    return RepoFragment()
                 } else if (position == 2) {
                     return EventFragment()
+                } else {
+                    return IssueFragment()
                 }
-                return RepoFragment()
             }
 
             override fun getItemCount(): Int {
@@ -41,6 +44,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             }
         }
         view_pager.isUserInputEnabled = true
+        view_pager.offscreenPageLimit = tabs!!.size - 1
 
         TabLayoutMediator(tab_layout, view_pager) { tab, position ->
             tab.text = tabs!![position]

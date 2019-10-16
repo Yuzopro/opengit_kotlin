@@ -5,13 +5,13 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.yuzo.lib.log.v
-import com.yuzo.lib.ui.adapter.BasePagedListAdapter
+import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.adapter.BaseViewHolder
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.databinding.ListItemRepoBinding
@@ -21,16 +21,24 @@ import com.yuzo.opengit.kotlin.http.service.bean.Repo
  * Author: yuzo
  * Date: 2019-10-08
  */
-class RepoAdapter : BasePagedListAdapter<Repo, ListItemRepoBinding, RepoViewHolder>(diffCallback) {
+class RepoAdapter : BasePagedAdapter<Repo>(diffCallback) {
+    private var mBinding: ListItemRepoBinding? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
-        return RepoViewHolder(
-            ListItemRepoBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+    override fun getView(parent: ViewGroup, viewType: Int): View {
+        mBinding = ListItemRepoBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
         )
+
+        return mBinding!!.root
+    }
+
+    override fun setItem(holder: BaseViewHolder, item: Repo?, position: Int) {
+        mBinding?.apply {
+            this.item = item
+            executePendingBindings()
+        }
     }
 
     companion object {
@@ -50,22 +58,6 @@ class RepoAdapter : BasePagedListAdapter<Repo, ListItemRepoBinding, RepoViewHold
                     return oldItem.equals(newItem)
                 }
             }
-    }
-}
-
-class RepoViewHolder(private val binding: ListItemRepoBinding) :
-    BaseViewHolder<Repo, ListItemRepoBinding>(binding) {
-
-    override fun bind(item: Repo) {
-        v(TAG, "event url is " + item.events_url)
-        binding.apply {
-            this.item = item
-            executePendingBindings()
-        }
-    }
-
-    companion object {
-        private const val TAG = "RepoViewHolder"
     }
 }
 

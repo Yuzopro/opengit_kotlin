@@ -1,11 +1,12 @@
 package com.yuzo.opengit.kotlin.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.yuzo.lib.ui.adapter.BasePagedListAdapter
+import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.adapter.BaseViewHolder
 import com.yuzo.opengit.kotlin.databinding.ListItemHomeBinding
 import com.yuzo.opengit.kotlin.http.service.bean.Entrylist
@@ -15,16 +16,24 @@ import com.yuzo.opengit.kotlin.http.service.bean.Tag
  * Author: yuzo
  * Date: 2019-10-11
  */
-class HomeAdapter :
-    BasePagedListAdapter<Entrylist, ListItemHomeBinding, HomeViewHolder>(diffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        return HomeViewHolder(
-            ListItemHomeBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+class HomeAdapter : BasePagedAdapter<Entrylist>(diffCallback) {
+    private var mBinding: ListItemHomeBinding? = null
+
+    override fun getView(parent: ViewGroup, viewType: Int): View {
+        mBinding = ListItemHomeBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
         )
+
+        return mBinding!!.root
+    }
+
+    override fun setItem(holder: BaseViewHolder, item: Entrylist?, position: Int) {
+        mBinding?.apply {
+            this.item = item
+            executePendingBindings()
+        }
     }
 
     companion object {
@@ -45,16 +54,6 @@ class HomeAdapter :
                     return oldItem.equals(newItem)
                 }
             }
-    }
-}
-
-class HomeViewHolder(private val binding: ListItemHomeBinding) :
-    BaseViewHolder<Entrylist, ListItemHomeBinding>(binding) {
-    override fun bind(item: Entrylist) {
-        binding.apply {
-            this.item = item
-            executePendingBindings()
-        }
     }
 }
 
