@@ -1,6 +1,7 @@
 package com.yuzo.opengit.kotlin.ui.fragment
 
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
@@ -43,8 +44,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 return tabs!!.size
             }
         }
-        view_pager.isUserInputEnabled = true
-        view_pager.offscreenPageLimit = tabs!!.size - 1
+        view_pager.isUserInputEnabled = false
+//        view_pager.offscreenPageLimit = tabs!!.size - 1
 
         TabLayoutMediator(tab_layout, view_pager) { tab, position ->
             tab.text = tabs!![position]
@@ -68,6 +69,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     }
 
     fun launchSearch() {
-        ToastUtil.showShort("launchSearch")
+
+        NavHostFragment.findNavController(this).navigate(R.id.action_drawer_to_gallery1)
+
+//        ToastUtil.showShort("launchSearch")
     }
 }

@@ -1,11 +1,14 @@
 package com.yuzo.opengit.kotlin.ui.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.lxj.xpopup.XPopup
+import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.fragment.BaseRefreshFragment
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.http.service.bean.Issue
@@ -22,7 +25,9 @@ import com.yuzo.opengit.kotlin.ui.viewmodel.IssueViewModel
  * Author: yuzo
  * Date: 2019-10-12
  */
-class IssueFragment : BaseRefreshFragment<Issue, IssueAdapter, IssueDataSource>() {
+class IssueFragment : BaseRefreshFragment<Issue, IssueAdapter, IssueDataSource>(),
+    BasePagedAdapter.OnItemClickListener<Issue> {
+
     private val filter = arrayOf("assigned", "created", "mentioned", "subscribed", "all")
     private val state = arrayOf("open", "closed", "all")
     private val sort = arrayOf("created", "updated", "comments")
@@ -32,6 +37,24 @@ class IssueFragment : BaseRefreshFragment<Issue, IssueAdapter, IssueDataSource>(
 
     override val mViewModel: IssueViewModel by viewModels {
         AppViewModelProvider.providerIssueModel()
+    }
+
+    override fun initView() {
+        super.initView()
+
+        mAdapter.listener = this
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        mAdapter.listener = null
+    }
+
+    override fun OnItemClick(item: Issue?, position: Int) {
+        val uri = Uri.parse(item?.url)
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(intent)
     }
 
     override fun getFixView(parent: ViewGroup): View? {

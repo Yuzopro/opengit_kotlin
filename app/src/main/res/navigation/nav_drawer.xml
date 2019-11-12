@@ -1,16 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    android:id="@+id/nav_drawer"
+    app:startDestination="@id/drawerFragment">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.yuzo.opengit.kotlin.ui.fragment.MainFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_main" />
+        android:id="@+id/drawerFragment"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.DrawerFragment"
+        android:label="fragment_drawer"
+        tools:layout="@layout/fragment_drawer"/>
+<!--        <action
+            android:id="@+id/action_drawer_to_gallery"
+            app:destination="@id/nav_gallery" />
 
+        <action
+            android:id="@+id/action_drawer_to_slideshow"
+            app:destination="@id/nav_slideshow" />
+
+        <action
+            android:id="@+id/action_drawer_to_tools"
+            app:destination="@id/nav_tools" />
+
+        <action
+            android:id="@+id/action_drawer_to_share"
+            app:destination="@id/nav_share" />
+
+        <action
+            android:id="@+id/action_drawer_to_send"
+            app:destination="@id/nav_send" />
+    </fragment>-->
+<!--
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.yuzo.opengit.kotlin.ui.fragment.GalleryFragment"
@@ -39,5 +60,5 @@
         android:id="@+id/nav_send"
         android:name="com.yuzo.opengit.kotlin.ui.fragment.SendFragment"
         android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
+        tools:layout="@layout/fragment_send" />-->
 </navigation>

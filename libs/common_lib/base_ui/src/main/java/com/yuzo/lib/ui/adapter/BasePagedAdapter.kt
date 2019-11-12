@@ -18,6 +18,12 @@ import com.yuzo.lib.tool.transTimeStamp
 abstract class BasePagedAdapter<T>(callback: DiffUtil.ItemCallback<T>) :
     PagedListAdapter<T, BaseViewHolder>(callback) {
 
+    var listener: OnItemClickListener<T>? = null
+
+    interface OnItemClickListener<T> {
+        fun OnItemClick(item: T?, position: Int)
+    }
+
     abstract fun getView(parent: ViewGroup, viewType: Int): View
 
     abstract fun setItem(holder: BaseViewHolder, item: T?, position: Int)
@@ -30,6 +36,9 @@ abstract class BasePagedAdapter<T>(callback: DiffUtil.ItemCallback<T>) :
         val item = getItem(position)
         holder.apply {
             setItem(this, item, position)
+        }
+        holder.itemView.setOnClickListener {
+            listener?.OnItemClick(item, position)
         }
     }
 }
