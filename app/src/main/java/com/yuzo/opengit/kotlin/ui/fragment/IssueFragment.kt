@@ -6,26 +6,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.lxj.xpopup.XPopup
 import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.fragment.BaseRefreshFragment
+import com.yuzo.lib.ui.viewmodel.BaseRefreshViewModel
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.http.service.bean.Issue
 import com.yuzo.opengit.kotlin.sp.directionSp
 import com.yuzo.opengit.kotlin.sp.filterSp
 import com.yuzo.opengit.kotlin.sp.sortSp
 import com.yuzo.opengit.kotlin.sp.stateSp
-import com.yuzo.opengit.kotlin.ui.AppViewModelProvider
 import com.yuzo.opengit.kotlin.ui.adapter.IssueAdapter
-import com.yuzo.opengit.kotlin.ui.paging.IssueDataSource
+import com.yuzo.opengit.kotlin.ui.repository.IssueRepository
 import com.yuzo.opengit.kotlin.ui.viewmodel.IssueViewModel
 
 /**
  * Author: yuzo
  * Date: 2019-10-12
  */
-class IssueFragment : BaseRefreshFragment<Issue, IssueAdapter, IssueDataSource>(),
+class IssueFragment : BaseRefreshFragment<Issue, IssueAdapter>(),
     BasePagedAdapter.OnItemClickListener<Issue> {
 
     private val filter = arrayOf("assigned", "created", "mentioned", "subscribed", "all")
@@ -34,10 +36,6 @@ class IssueFragment : BaseRefreshFragment<Issue, IssueAdapter, IssueDataSource>(
     private val direction = arrayOf("asc", "desc")
 
     override var mAdapter: IssueAdapter = IssueAdapter()
-
-    override val mViewModel: IssueViewModel by viewModels {
-        AppViewModelProvider.providerIssueModel()
-    }
 
     override fun initView() {
         super.initView()
@@ -49,6 +47,14 @@ class IssueFragment : BaseRefreshFragment<Issue, IssueAdapter, IssueDataSource>(
         super.onDestroyView()
 
         mAdapter.listener = null
+    }
+
+    override fun getViewModel(): BaseRefreshViewModel<Issue> {
+        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return IssueViewModel(IssueRepository(filterSp, stateSp, sortSp, directionSp)) as T
+            }
+        })[IssueViewModel::class.java]
     }
 
     override fun OnItemClick(item: Issue?, position: Int) {
@@ -86,20 +92,22 @@ class IssueFragment : BaseRefreshFragment<Issue, IssueAdapter, IssueDataSource>(
             .asAttachList(array, null) { position, text ->
                 view.text = text
 
-                if (state == FILTER) {
-                    mViewModel.changeFilter(text)
-                } else if (state == STATE) {
-                    mViewModel.changeState(text)
-                } else if (state == SORT) {
-                    mViewModel.changeSort(text)
-                } else if (state == DIRECTION) {
-                    mViewModel.changeDirection(text)
-                }
+//                if (state == FILTER) {
+//                    mViewModel.changeFilter(text)
+//                } else if (state == STATE) {
+//                    mViewModel.changeState(text)
+//                } else if (state == SORT) {
+//                    mViewModel.changeSort(text)
+//                } else if (state == DIRECTION) {
+//                    mViewModel.changeDirection(text)
+//                }
             }
             .show()
     }
 
     companion object {
+        private const val TAG = "IssueFragment"
+
         private const val FILTER = 0
         private const val STATE = 1
         private const val SORT = 2

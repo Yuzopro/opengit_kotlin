@@ -1,27 +1,12 @@
 package com.yuzo.opengit.kotlin.ui.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
+import com.yuzo.lib.ui.repository.BaseRepository
 import com.yuzo.lib.ui.viewmodel.BaseRefreshViewModel
 import com.yuzo.opengit.kotlin.http.service.bean.Entrylist
-import com.yuzo.opengit.kotlin.ui.paging.HomeDataSource
-import com.yuzo.opengit.kotlin.ui.paging.HomeDataSourceFactory
-import com.yuzo.opengit.kotlin.ui.repository.HomeRepository
 
 /**
  * Author: yuzo
- * Date: 2019-09-26
+ * Date: 2019-11-14
  */
-class HomeViewModel constructor(repository: HomeRepository) :
-    BaseRefreshViewModel<Entrylist, HomeDataSource>() {
-
-    override var lists: LiveData<PagedList<Entrylist>> =
-        LivePagedListBuilder(HomeDataSourceFactory(dataSource, repository), config)
-            .build()
-
-    companion object {
-        private const val TAG: String = "HomeViewModel"
-    }
-
+class HomeViewModel(repository: BaseRepository<Entrylist>) : BaseRefreshViewModel<Entrylist>(repository) {
 }

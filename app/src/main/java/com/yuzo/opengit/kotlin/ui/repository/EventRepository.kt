@@ -1,39 +1,29 @@
 package com.yuzo.opengit.kotlin.ui.repository
 
 import com.google.gson.Gson
-import com.yuzo.lib.http.NetworkScheduler
-import com.yuzo.lib.http.ResponseObserver
-import com.yuzo.opengit.kotlin.http.HttpClient
+import com.yuzo.lib.ui.paging.AbsDataSourceFactory
+import com.yuzo.lib.ui.repository.AbsRepository
 import com.yuzo.opengit.kotlin.http.service.bean.Event
 import com.yuzo.opengit.kotlin.http.service.bean.User
 import com.yuzo.opengit.kotlin.sp.userSp
+import com.yuzo.opengit.kotlin.ui.paging.EventDataSource
+import com.yuzo.opengit.kotlin.ui.paging.EventDataSourceFactory
 
 /**
  * Author: yuzo
  * Date: 2019-10-09
  */
-class EventRepository private constructor() {
+class EventRepository : AbsRepository<Event, EventDataSource>() {
+
     private var user: User? = null
 
     init {
         user = Gson().fromJson(userSp, User::class.java)
     }
 
-    fun queryEvents(pageIndex: Int, perPage: Int, callback: ResponseObserver<List<Event>>) {
-        HttpClient.getInstance().userService
-            .queryReceivedEvents(user!!.login, pageIndex, perPage)
-            .compose(NetworkScheduler.compose())
-            .subscribe(callback)
-    }
+    override fun getDataSourceFactory(): AbsDataSourceFactory<Event, EventDataSource> = EventDataSourceFactory(user?.login)
 
     companion object {
         private const val TAG = "EventRepository"
-
-        @Volatile
-        private var instance: EventRepository? = null
-
-        fun getInstance() = instance ?: synchronized(this) {
-            instance ?: EventRepository().also { instance = it }
-        }
     }
 }

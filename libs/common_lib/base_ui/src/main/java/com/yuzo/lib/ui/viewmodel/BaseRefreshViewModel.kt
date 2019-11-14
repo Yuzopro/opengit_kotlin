@@ -1,32 +1,39 @@
 package com.yuzo.lib.ui.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.Transformations.switchMap
-import androidx.paging.PagedList
-import com.yuzo.lib.ui.paging.BasePositionalDataSource
+import com.yuzo.lib.ui.repository.BaseRepository
 
 /**
  * Author: yuzo
- * Date: 2019-10-10
+ * Date: 2019-11-14
  */
-abstract class BaseRefreshViewModel<T, P : BasePositionalDataSource<T>> : BaseViewModel() {
-    open val config = PagedList.Config.Builder()
-        .setPageSize(20)    //每页显示的词条数
-        .setEnablePlaceholders(false)
-        .setInitialLoadSizeHint(20) //首次加载的数据量
-        .setPrefetchDistance(5)     //距离底部还有多少条数据时开始预加载
-        .build()
+abstract class BaseRefreshViewModel<T>(repository: BaseRepository<T>) : BaseViewModel() {
+    private val state = MutableLiveData<Int>()
 
-    abstract var lists: LiveData<PagedList<T>>
+    private val result = map(state, {
+        repository.post(it, 20)
+    })
 
-    val dataSource = MutableLiveData<P>()
+    val lists = switchMap(result, { it.pagedList })!!
+    val networkState = switchMap(result, { it.networkState })!!
+    val refreshState = switchMap(result, { it.refreshState })!!
 
-    val loading = switchMap(dataSource) { it.getLoadingBean() }
-
-    fun onRefresh() {
-        dataSource.value?.onRefresh()
+    fun doAction(subreddit: Int): Boolean {
+        if (state.value == subreddit) {
+            return false
+        }
+        state.value = subreddit
+        return true
     }
 
+    fun refresh() {
+        result.value?.refresh?.invoke()
+    }
 
+    fun retry() {
+        val listing = result?.value
+        listing?.retry?.invoke()
+    }
 }

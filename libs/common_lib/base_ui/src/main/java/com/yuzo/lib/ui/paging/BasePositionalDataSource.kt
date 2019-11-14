@@ -2,36 +2,25 @@ package com.yuzo.lib.ui.paging
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PositionalDataSource
+import com.yuzo.lib.ui.repository.NetworkState
 
 /**
  * Author: yuzo
  * Date: 2019-10-10
  */
 abstract class BasePositionalDataSource<T> : PositionalDataSource<T>() {
-    val loading = MutableLiveData<LoadingBean>()
 
-    fun onRefresh() {
-        invalidate()
-    }
+    var retry: (() -> Any)? = null
 
-    fun getLoadingBean(): MutableLiveData<LoadingBean> {
-        return loading
-    }
+    val initialLoad = MutableLiveData<NetworkState>()
+    val networkState = MutableLiveData<NetworkState>()
 
-    fun showLoading() {
-        loading.postValue(LoadingBean(LoadingState.Loading))
-    }
-
-    fun hideLoading() {
-        loading.postValue(LoadingBean(LoadingState.Normal))
-    }
-
-    fun showErrorView() {
-        loading.postValue(LoadingBean(LoadingState.Failed))
-    }
-
-    fun showEmptyView() {
-        loading.postValue(LoadingBean(LoadingState.Empty))
+    fun retryAllFailed() {
+        val prevRetry = retry
+        retry = null
+        prevRetry?.let {
+            it.invoke()
+        }
     }
 
     companion object {

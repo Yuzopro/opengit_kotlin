@@ -1,63 +1,75 @@
 package com.yuzo.opengit.kotlin.ui.paging
 
-import com.yuzo.lib.http.ResponseObserver
+import androidx.lifecycle.MutableLiveData
 import com.yuzo.lib.log.v
-import com.yuzo.lib.tool.ToastUtil
 import com.yuzo.lib.ui.paging.BasePositionalDataSource
+import com.yuzo.opengit.kotlin.http.HttpClient2
 import com.yuzo.opengit.kotlin.http.service.bean.Entrylist
-import com.yuzo.opengit.kotlin.http.service.bean.Home
-import com.yuzo.opengit.kotlin.ui.repository.HomeRepository
+import com.yuzo.lib.ui.repository.NetworkState
+import java.io.IOException
 
 /**
  * Author: yuzo
  * Date: 2019-10-09
  */
-class HomeDataSource constructor(private val repository: HomeRepository) :
-    BasePositionalDataSource<Entrylist>() {
+class HomeDataSource : BasePositionalDataSource<Entrylist>() {
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Entrylist>) {
         v(TAG, "loadInitial")
 
-        showLoading()
+        val request = HttpClient2.getInstance().homeService.queryHomes(
+            1,
+            params.requestedLoadSize
+        )
+        networkState.postValue(NetworkState.LOADING)
+        initialLoad.postValue(NetworkState.LOADING)
 
-        val pageSize = params.requestedLoadSize
-        repository.queryHomes(1, pageSize, object : ResponseObserver<Home>() {
-            override fun onSuccess(response: Home?) {
-                response?.apply {
-                    callback.onResult(d.entrylist, 0)
-                }
-
-                if (response == null || response.d.entrylist.isEmpty()) {
-                    showEmptyView()
-                } else {
-                    hideLoading()
-                }
+        try {
+            val response = request.execute()
+            val data = response.body()?.d
+            val items = data?.entrylist?.map { it } ?: emptyList()
+            retry = null
+            networkState.postValue(NetworkState.LOADED)
+            initialLoad.postValue(NetworkState.LOADED)
+            callback.onResult(items, 0)
+        } catch (ioException: IOException) {
+            retry = {
+                loadInitial(params, callback)
             }
-
-            override fun onError(code: Int, message: String) {
-                ToastUtil.showShort(message)
-                showErrorView()
-            }
-        })
+            val error = NetworkState.error(ioException.message ?: "unknown error")
+            networkState.postValue(error)
+            initialLoad.postValue(error)
+        }
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Entrylist>) {
         v(TAG, "loadRange")
 
-        val index = params.startPosition % params.loadSize
-        if (index == 0) {
-            val page = params.startPosition / params.loadSize
-            repository.queryHomes(page, params.loadSize, object : ResponseObserver<Home>() {
-                override fun onSuccess(response: Home?) {
-                    response?.apply {
-                        callback.onResult(d.entrylist)
-                    }
-                }
+//        val index = params.startPosition % params.loadSize
+        val page = params.startPosition / params.loadSize
 
-                override fun onError(code: Int, message: String) {
-                    ToastUtil.showShort(message)
-                }
-            })
+        val request = HttpClient2.getInstance().homeService.queryHomes(
+            page,
+            params.loadSize
+        )
+        networkState.postValue(NetworkState.LOADING)
+        initialLoad.postValue(NetworkState.LOADING)
+
+        try {
+            val response = request.execute()
+            val data = response.body()?.d
+            val items = data?.entrylist?.map { it } ?: emptyList()
+            retry = null
+            networkState.postValue(NetworkState.LOADED)
+            initialLoad.postValue(NetworkState.LOADED)
+            callback.onResult(items)
+        } catch (ioException: IOException) {
+            retry = {
+                loadRange(params, callback)
+            }
+            val error = NetworkState.error(ioException.message ?: "unknown error")
+            networkState.postValue(error)
+            initialLoad.postValue(error)
         }
     }
 

@@ -1,7 +1,7 @@
 package com.yuzo.opengit.kotlin.http.service
 
 import com.yuzo.opengit.kotlin.http.service.bean.Issue
-import io.reactivex.Observable
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -19,5 +19,5 @@ interface IssueService {
         @Query("direction") direction: String,
         @Query("page") pageIndex: Int,
         @Query("per_page") perPage: Int
-    ): Observable<List<Issue>>
+    ): Call<List<Issue>>
 }

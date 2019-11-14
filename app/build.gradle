@@ -67,4 +67,6 @@ dependencies {
     implementation project(':common_http')
     implementation project(':common_log')
     implementation project(':common_imageloader')
+
+    implementation "com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:$rootProject.rxbindingVersion"
 }

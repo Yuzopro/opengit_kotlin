@@ -12,7 +12,7 @@ class LoadingDialog constructor(context: Context) : Dialog(context) {
     init {
         setContentView(R.layout.layout_loading)
 
-        setCanceledOnTouchOutside(false)
+//        setCanceledOnTouchOutside(false)
         window?.setBackgroundDrawableResource(R.drawable.drawable_transparent)
         window?.setDimAmount(0.0f)
     }

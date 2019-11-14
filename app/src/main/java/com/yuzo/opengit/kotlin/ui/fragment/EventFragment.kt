@@ -1,30 +1,25 @@
 package com.yuzo.opengit.kotlin.ui.fragment
 
-import android.content.Intent
-import android.net.Uri
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.fragment.BaseRefreshFragment
+import com.yuzo.lib.ui.viewmodel.BaseRefreshViewModel
 import com.yuzo.opengit.kotlin.http.service.bean.Event
-import com.yuzo.opengit.kotlin.http.service.bean.Repo
-import com.yuzo.opengit.kotlin.ui.AppViewModelProvider
 import com.yuzo.opengit.kotlin.ui.adapter.EventAdapter
-import com.yuzo.opengit.kotlin.ui.paging.EventDataSource
+import com.yuzo.opengit.kotlin.ui.repository.EventRepository
 import com.yuzo.opengit.kotlin.ui.viewmodel.EventViewModel
 
 /**
  * Author: yuzo
  * Date: 2019-10-11
  */
-class EventFragment : BaseRefreshFragment<Event, EventAdapter, EventDataSource>(),
+class EventFragment : BaseRefreshFragment<Event, EventAdapter>(),
     BasePagedAdapter.OnItemClickListener<Event> {
 
 
     override var mAdapter: EventAdapter = EventAdapter()
-
-    override val mViewModel: EventViewModel by viewModels {
-        AppViewModelProvider.providerEventModel()
-    }
 
     override fun initView() {
         super.initView()
@@ -38,9 +33,21 @@ class EventFragment : BaseRefreshFragment<Event, EventAdapter, EventDataSource>(
         mAdapter.listener = null
     }
 
+    override fun getViewModel(): BaseRefreshViewModel<Event> {
+        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return EventViewModel(EventRepository()) as T
+            }
+        })[EventViewModel::class.java]
+    }
+
     override fun OnItemClick(item: Event?, position: Int) {
 //        val uri = Uri.parse(item?)
 //        val intent = Intent(Intent.ACTION_VIEW, uri)
 //        startActivity(intent)
+    }
+
+    companion object {
+        private const val TAG = "EventFragment"
     }
 }
