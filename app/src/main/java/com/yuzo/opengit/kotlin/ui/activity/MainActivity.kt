@@ -2,55 +2,52 @@ package com.yuzo.opengit.kotlin.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.Navigation
 import com.yuzo.opengit.kotlin.R
+import com.yuzo.opengit.kotlin.ui.DrawerCoordinateHelper
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), DrawerCoordinateHelper.OnDrawerLockListener {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initView()
-    }
-
-    private fun initView() {
-//        vp_main_1.adapter = object :FragmentPagerAdapter(supportFragmentManager) {
-//            override fun getItem(position: Int): Fragment {
-//                if (position == 0) {
-//                    return HomeFragment()
-//                } else if (position == 1) {
-//                    return RepoFragment()
-//                } else if (position == 2) {
-//                    return EventFragment()
-//                } else {
-//                    return IssueFragment()
-//                }
-//            }
-//
-//            override fun getCount(): Int = 4
-//        }
-//        vp_main_1.offscreenPageLimit = 3
-//        vp_main_1.currentItem = 0
-//
-//        tv_test_1.setOnClickListener {
-//            vp_main_1.currentItem = 0
-//        }
-//        tv_test_2.setOnClickListener {
-//            vp_main_1.currentItem = 1
-//        }
-//        tv_test_3.setOnClickListener {
-//            vp_main_1.currentItem = 2
-//        }
-//        tv_test_4.setOnClickListener {
-//            vp_main_1.currentItem = 3
-//        }
+        DrawerCoordinateHelper.getInstance().listener = this
     }
 
     fun openDrawer() {
-        drawer_layout?.openDrawer(Gravity.LEFT)
+        drawer_layout?.openDrawer(GravityCompat.START)
+    }
+
+    override fun onBackPressed() {
+        val nav = Navigation.findNavController(this, R.id.nav_host_fragment)
+        if (nav.currentDestination != null && nav.currentDestination!!.id != R.id.nav_home) {
+            nav.navigateUp()
+        } else if (drawer_layout != null && drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        DrawerCoordinateHelper.getInstance().listener = null
+    }
+
+    override fun onDrawerLock(isUnLock: Boolean) {
+        drawer_layout.setDrawerLockMode(
+            if (isUnLock)
+                DrawerLayout.LOCK_MODE_UNLOCKED
+            else
+                DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+        )
     }
 
     companion object {

@@ -3,14 +3,16 @@ package com.yuzo.opengit.kotlin.ui.activity
 import android.content.Intent
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
-import androidx.activity.viewModels
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.yuzo.lib.tool.getScreenHeight
 import com.yuzo.lib.ui.activity.BaseActivity
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.databinding.ActivityLoginBinding
-import com.yuzo.opengit.kotlin.ui.AppViewModelProvider
+import com.yuzo.opengit.kotlin.ui.repository.LoginRepository
 import com.yuzo.opengit.kotlin.ui.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -21,9 +23,11 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     override val layoutId: Int = R.layout.activity_login
 
-    private val loginViewModel: LoginViewModel by viewModels {
-        AppViewModelProvider.providerLoginModel()
-    }
+    private val loginViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return LoginViewModel(LoginRepository.getInstance()) as T
+        }
+    })[LoginViewModel::class.java]
 
     companion object {
         fun launch(activity: FragmentActivity) =

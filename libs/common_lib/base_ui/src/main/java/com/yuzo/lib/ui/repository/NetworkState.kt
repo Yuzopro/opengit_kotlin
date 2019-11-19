@@ -19,7 +19,9 @@ package com.yuzo.lib.ui.repository
 enum class Status {
     RUNNING,
     SUCCESS,
-    FAILED
+    FAILED,
+    NO_DATA,
+    LOAD_FAILED
 }
 
 @Suppress("DataClassPrivateConstructor")
@@ -31,7 +33,11 @@ data class NetworkState private constructor(
             NetworkState(Status.SUCCESS)
         val LOADING =
             NetworkState(Status.RUNNING)
+        val NO_DATA =
+            NetworkState(Status.NO_DATA)
         fun error(msg: String?) =
             NetworkState(Status.FAILED, msg)
+        fun loadError(msg: String?) =
+            NetworkState(Status.LOAD_FAILED, msg)
     }
 }

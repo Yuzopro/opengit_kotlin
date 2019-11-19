@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.yuzo.lib.ui.view.LoadingDialog
 
 /**
@@ -52,6 +54,10 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     }
 
     open fun initData(binding: T) {}
+
+    protected fun nav(): NavController {
+        return NavHostFragment.findNavController(this)
+    }
 
     open fun showLoading() {
         activity?.apply {

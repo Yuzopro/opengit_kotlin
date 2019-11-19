@@ -23,15 +23,13 @@ class EventDataSource(val name: String?) : BasePositionalDataSource<Event>() {
             params.requestedLoadSize
         )
         networkState.postValue(NetworkState.LOADING)
-        initialLoad.postValue(NetworkState.LOADING)
 
         try {
             val response = request.execute()
             val data = response.body()
             val items = data?.map { it } ?: emptyList()
             retry = null
-            networkState.postValue(NetworkState.LOADED)
-            initialLoad.postValue(NetworkState.LOADED)
+            networkState.postValue(if (items.isEmpty()) NetworkState.NO_DATA else NetworkState.LOADED)
             callback.onResult(items, 0)
         } catch (ioException: IOException) {
             retry = {
@@ -39,28 +37,38 @@ class EventDataSource(val name: String?) : BasePositionalDataSource<Event>() {
             }
             val error = NetworkState.error(ioException.message ?: "unknown error")
             networkState.postValue(error)
-            initialLoad.postValue(error)
         }
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Event>) {
         v(TAG, "loadRange")
 
-//        val index = params.startPosition % params.loadSize
-//        if (index == 0) {
-//            val page = params.startPosition / params.loadSize
-//            repository.queryEvents(page, params.loadSize, object : ResponseObserver<List<Event>>() {
-//                override fun onSuccess(response: List<Event>?) {
-//                    response?.apply {
-//                        callback.onResult(this)
-//                    }
-//                }
-//
-//                override fun onError(code: Int, message: String) {
-//                    ToastUtil.showShort(message)
-//                }
-//            })
-//        }
+        val index = params.startPosition % params.loadSize
+        if (index != 0) {
+            return
+        }
+        val page = params.startPosition / params.loadSize
+
+        val request = HttpClient.getInstance().userService.queryReceivedEvents(
+            name,
+            page,
+            params.loadSize
+        )
+
+        try {
+            val response = request.execute()
+            val data = response.body()
+            val items = data?.map { it } ?: emptyList()
+            retry = null
+            networkState.postValue(NetworkState.LOADED)
+            callback.onResult(items)
+        } catch (ioException: IOException) {
+            retry = {
+                loadRange(params, callback)
+            }
+            val error = NetworkState.loadError(ioException.message ?: "unknown error")
+            networkState.postValue(error)
+        }
     }
 
     companion object {

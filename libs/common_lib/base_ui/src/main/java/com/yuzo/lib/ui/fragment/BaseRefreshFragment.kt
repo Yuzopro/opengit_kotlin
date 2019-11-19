@@ -1,12 +1,16 @@
 package com.yuzo.lib.ui.fragment
 
+import android.util.Log
+import android.util.Log.v
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.yuzo.lib.tool.ToastUtil
 import com.yuzo.lib.ui.R
 import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.databinding.BaseRefreshLayoutBinding
 import com.yuzo.lib.ui.repository.NetworkState
+import com.yuzo.lib.ui.repository.Status
 import com.yuzo.lib.ui.viewmodel.BaseRefreshViewModel
 import kotlinx.android.synthetic.main.base_refresh_layout.*
 
@@ -14,13 +18,14 @@ import kotlinx.android.synthetic.main.base_refresh_layout.*
  * Author: yuzo
  * Date: 2019-10-10
  */
-abstract class BaseRefreshFragment<T, A : BasePagedAdapter<T>> : BaseLazyFragment<BaseRefreshLayoutBinding>() {
+abstract class BaseRefreshFragment<T, A : BasePagedAdapter<T>, V : BaseRefreshViewModel<T>> :
+    BaseLazyFragment<BaseRefreshLayoutBinding>() {
 
     abstract var mAdapter: A
 
-    abstract fun getViewModel() : BaseRefreshViewModel<T>
+    abstract fun getViewModel(): V
 
-    private lateinit var  mViewModel: BaseRefreshViewModel<T>
+    lateinit var mViewModel: V
 
     override val layoutId: Int = R.layout.base_refresh_layout
 
@@ -29,30 +34,24 @@ abstract class BaseRefreshFragment<T, A : BasePagedAdapter<T>> : BaseLazyFragmen
 
         mViewModel = getViewModel()
 
-//        mViewModel.lists?.observe(this, Observer {
-//            if (it != null) {
-//                mAdapter.submitList(it)
-//            }
-//        })
-//
-//        mViewModel.loading.observe(this, Observer {
-//            it?.let { result ->
-//                if (swipe_refresh_layout.isRefreshing) {
-//                    hideException()
-//                    swipe_refresh_layout.isRefreshing = result.loadingState == LoadingState.Loading
-//                } else if (result.loadingState == LoadingState.Loading) {
-//                    hideException()
-//                    showLoading()
-//                } else if (result.loadingState == LoadingState.Failed) {
-//                    showException(true)
-//                } else if (result.loadingState == LoadingState.Empty) {
-//                    showException(false)
-//                } else {
-//                    hideException()
-//                    hideLoading()
-//                }
-//            }
-//        })
+        mViewModel.lists.observe(this, Observer {
+            mAdapter.submitList(it)
+        })
+        mViewModel.networkState.observe(this, Observer {
+            swipe_refresh_layout.isRefreshing = it == NetworkState.LOADING
+
+            if (it.status == Status.LOAD_FAILED) {
+                ToastUtil.showShort(it.msg ?: getString(R.string.text_network_error))
+            } else if (it.status == Status.FAILED) {
+                showException(true)
+                ToastUtil.showShort(it.msg ?: getString(R.string.text_network_error))
+            } else if (it.status == Status.NO_DATA) {
+                showException(false)
+            } else {
+                hideException()
+            }
+        })
+
     }
 
     override fun initView() {
@@ -62,12 +61,6 @@ abstract class BaseRefreshFragment<T, A : BasePagedAdapter<T>> : BaseLazyFragmen
 
         rv_list.adapter = mAdapter
 
-        mViewModel.lists.observe(this, Observer {
-            mAdapter.submitList(it)
-        })
-        mViewModel.refreshState.observe(this, Observer {
-            swipe_refresh_layout.isRefreshing = it == NetworkState.LOADING
-        })
         swipe_refresh_layout.setOnRefreshListener {
             mViewModel.refresh()
         }
@@ -96,9 +89,13 @@ abstract class BaseRefreshFragment<T, A : BasePagedAdapter<T>> : BaseLazyFragmen
         if (isError) {
             iv_base_refresh_error?.setImageResource(R.drawable.ic_network_error)
             tv_base_refresh_error?.text = getString(R.string.text_network_error)
+            cl_exception?.setOnClickListener {
+                mViewModel.retry()
+            }
         } else {
             iv_base_refresh_error?.setImageResource(R.drawable.ic_no_data)
             tv_base_refresh_error?.text = getString(R.string.text_empty_data)
+            cl_exception?.setOnClickListener(null)
         }
         hideLoading()
     }

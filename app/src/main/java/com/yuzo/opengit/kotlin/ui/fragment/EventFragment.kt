@@ -15,7 +15,7 @@ import com.yuzo.opengit.kotlin.ui.viewmodel.EventViewModel
  * Author: yuzo
  * Date: 2019-10-11
  */
-class EventFragment : BaseRefreshFragment<Event, EventAdapter>(),
+class EventFragment : BaseRefreshFragment<Event, EventAdapter, EventViewModel>(),
     BasePagedAdapter.OnItemClickListener<Event> {
 
 
@@ -33,7 +33,7 @@ class EventFragment : BaseRefreshFragment<Event, EventAdapter>(),
         mAdapter.listener = null
     }
 
-    override fun getViewModel(): BaseRefreshViewModel<Event> {
+    override fun getViewModel(): EventViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return EventViewModel(EventRepository()) as T

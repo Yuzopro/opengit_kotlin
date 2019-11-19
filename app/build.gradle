@@ -49,8 +49,10 @@ dependencies {
 //    implementation "androidx.navigation:navigation-fragment:$rootProject.navigationVersion"
 //    implementation "androidx.navigation:navigation-ui:$rootProject.navigationVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
-    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$rootProject.lifecycleVersion"
+//    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
+//    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
     implementation "androidx.viewpager2:viewpager2:$rootProject.viewpager2Version"
 //    implementation 'androidx.fragment:fragment-ktx:1.2.0-alpha04'
     implementation "com.google.android.material:material:$rootProject.materialVersion"

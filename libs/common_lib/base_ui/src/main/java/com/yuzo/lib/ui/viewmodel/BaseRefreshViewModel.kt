@@ -18,7 +18,6 @@ abstract class BaseRefreshViewModel<T>(repository: BaseRepository<T>) : BaseView
 
     val lists = switchMap(result, { it.pagedList })!!
     val networkState = switchMap(result, { it.networkState })!!
-    val refreshState = switchMap(result, { it.refreshState })!!
 
     fun doAction(subreddit: Int): Boolean {
         if (state.value == subreddit) {

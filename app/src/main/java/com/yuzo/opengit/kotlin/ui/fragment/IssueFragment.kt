@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.lxj.xpopup.XPopup
 import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.fragment.BaseRefreshFragment
-import com.yuzo.lib.ui.viewmodel.BaseRefreshViewModel
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.http.service.bean.Issue
 import com.yuzo.opengit.kotlin.sp.directionSp
@@ -27,7 +26,7 @@ import com.yuzo.opengit.kotlin.ui.viewmodel.IssueViewModel
  * Author: yuzo
  * Date: 2019-10-12
  */
-class IssueFragment : BaseRefreshFragment<Issue, IssueAdapter>(),
+class IssueFragment : BaseRefreshFragment<Issue, IssueAdapter, IssueViewModel>(),
     BasePagedAdapter.OnItemClickListener<Issue> {
 
     private val filter = arrayOf("assigned", "created", "mentioned", "subscribed", "all")
@@ -49,10 +48,10 @@ class IssueFragment : BaseRefreshFragment<Issue, IssueAdapter>(),
         mAdapter.listener = null
     }
 
-    override fun getViewModel(): BaseRefreshViewModel<Issue> {
+    override fun getViewModel(): IssueViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return IssueViewModel(IssueRepository(filterSp, stateSp, sortSp, directionSp)) as T
+                return IssueViewModel(IssueRepository()) as T
             }
         })[IssueViewModel::class.java]
     }
@@ -92,15 +91,20 @@ class IssueFragment : BaseRefreshFragment<Issue, IssueAdapter>(),
             .asAttachList(array, null) { position, text ->
                 view.text = text
 
-//                if (state == FILTER) {
-//                    mViewModel.changeFilter(text)
-//                } else if (state == STATE) {
-//                    mViewModel.changeState(text)
-//                } else if (state == SORT) {
-//                    mViewModel.changeSort(text)
-//                } else if (state == DIRECTION) {
-//                    mViewModel.changeDirection(text)
-//                }
+                when (state) {
+                    FILTER -> {
+                        mViewModel.changeFilter(text)
+                    }
+                    STATE -> {
+                        mViewModel.changeState(text)
+                    }
+                    SORT -> {
+                        mViewModel.changeSort(text)
+                    }
+                    DIRECTION -> {
+                        mViewModel.changeDirection(text)
+                    }
+                }
             }
             .show()
     }

@@ -13,8 +13,10 @@ import com.yuzo.lib.ui.paging.BasePositionalDataSource
 abstract class AbsRepository<T, S : BasePositionalDataSource<T>> : BaseRepository<T>  {
     abstract fun getDataSourceFactory() : AbsDataSourceFactory<T, S>
 
+    lateinit var sourceFactory : AbsDataSourceFactory<T, S>
+
     override fun post(state: Int, pageSize: Int): Listing<T> {
-        val sourceFactory = getDataSourceFactory()
+        sourceFactory = getDataSourceFactory()
 
         val config = PagedList.Config.Builder()
             .setPageSize(pageSize)    //每页显示的词条数
@@ -28,14 +30,10 @@ abstract class AbsRepository<T, S : BasePositionalDataSource<T>> : BaseRepositor
         val networkState = Transformations.switchMap(sourceFactory.sourceLiveData) {
             it.networkState
         }
-        val refreshState = Transformations.switchMap(sourceFactory.sourceLiveData) {
-            it.initialLoad
-        }
 
         return Listing(
             pagedList = livePagedList,
             networkState = networkState,
-            refreshState = refreshState,
             retry = {
                 sourceFactory.sourceLiveData.value?.retryAllFailed()
             },

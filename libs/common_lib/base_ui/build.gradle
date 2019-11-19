@@ -38,6 +38,9 @@ dependencies {
     implementation "androidx.paging:paging-runtime:$pagingVersion"
     implementation "com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:$rootProject.rxbindingVersion"
 
+    api 'androidx.navigation:navigation-runtime:2.1.0'
+    api 'com.lwjlol.navigation:keep-fragmentstate:0.0.1'
+
     implementation project(':common_tool')
     implementation project(':common_imageloader')
 

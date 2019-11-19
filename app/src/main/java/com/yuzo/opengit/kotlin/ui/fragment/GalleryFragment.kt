@@ -9,11 +9,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.yuzo.opengit.kotlin.R
+import com.yuzo.opengit.kotlin.ui.DrawerCoordinateHelper
 import com.yuzo.opengit.kotlin.ui.viewmodel.GalleryViewModel
 
 class GalleryFragment : Fragment() {
 
     private lateinit var galleryViewModel: GalleryViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        lifecycle.addObserver(DrawerCoordinateHelper.getInstance())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -19,14 +19,14 @@ abstract class BaseLazyFragment<T : ViewDataBinding> : BaseFragment<T>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        v(TAG, "onActivityCreated")
+        v(this.javaClass.simpleName, "onActivityCreated")
         initPrepare()
     }
 
     override fun onResume() {
         super.onResume()
 
-        v(TAG, "onResume isFirstResume is $isFirstResume, userVisibleHint is $userVisibleHint")
+        v(this.javaClass.simpleName, "onResume isFirstResume is $isFirstResume, userVisibleHint is $userVisibleHint")
 
         if (isFirstResume) {
             isFirstResume = false
@@ -41,7 +41,7 @@ abstract class BaseLazyFragment<T : ViewDataBinding> : BaseFragment<T>() {
     override fun onPause() {
         super.onPause()
 
-        v(TAG, "onPause userVisibleHint is $userVisibleHint")
+        v(this.javaClass.simpleName, "onPause userVisibleHint is $userVisibleHint")
 
         if (userVisibleHint) {
             onUserInvisible()
@@ -51,7 +51,7 @@ abstract class BaseLazyFragment<T : ViewDataBinding> : BaseFragment<T>() {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
 
-        v(TAG, "setUserVisibleHint isVisibleToUser is $isVisibleToUser")
+        v(this.javaClass.simpleName, "setUserVisibleHint isVisibleToUser is $isVisibleToUser")
 
 
         if (isVisibleToUser) {
@@ -72,7 +72,7 @@ abstract class BaseLazyFragment<T : ViewDataBinding> : BaseFragment<T>() {
     }
 
     private fun initPrepare() {
-        v(TAG, "initPrepare isPrepared is $isPrepared")
+        v(this.javaClass.simpleName, "initPrepare isPrepared is $isPrepared")
 
         if (isPrepared) {
             onFirstUserVisible()
@@ -83,22 +83,22 @@ abstract class BaseLazyFragment<T : ViewDataBinding> : BaseFragment<T>() {
 
     /**用户触发fragment第一次展示，为了加载数据 */
     open fun onFirstUserVisible() {
-        v(TAG, "onFirstUserVisible")
+        v(this.javaClass.simpleName, "onFirstUserVisible")
     }
 
     /**用户触发fragment展示 */
     open fun onUserVisible() {
-        v(TAG, "onUserVisible")
+        v(this.javaClass.simpleName, "onUserVisible")
     }
 
     /**用户触发fragment第一次隐藏 */
     open fun onFirstUserInVisible() {
-        v(TAG, "onFirstUserInVisible")
+        v(this.javaClass.simpleName, "onFirstUserInVisible")
     }
 
     /**用户触发fragment隐藏 */
     open fun onUserInvisible() {
-        v(TAG, "onUserInvisible")
+        v(this.javaClass.simpleName, "onUserInvisible")
     }
 
     companion object {

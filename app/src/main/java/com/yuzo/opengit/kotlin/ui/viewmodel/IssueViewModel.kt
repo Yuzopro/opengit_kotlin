@@ -1,36 +1,25 @@
 package com.yuzo.opengit.kotlin.ui.viewmodel
 
-import com.yuzo.lib.ui.repository.BaseRepository
 import com.yuzo.lib.ui.viewmodel.BaseRefreshViewModel
 import com.yuzo.opengit.kotlin.http.service.bean.Issue
 import com.yuzo.opengit.kotlin.sp.directionSp
 import com.yuzo.opengit.kotlin.sp.filterSp
 import com.yuzo.opengit.kotlin.sp.sortSp
 import com.yuzo.opengit.kotlin.sp.stateSp
+import com.yuzo.opengit.kotlin.ui.repository.IssueRepository
 
 /**
  * Author: yuzo
  * Date: 2019-09-26
  */
-class IssueViewModel (repository: BaseRepository<Issue>) : BaseRefreshViewModel<Issue>(repository) {
-//    override val mDataSourceFactory: DataSource.Factory<Int, Issue> = IssueDataSourceFactory(
-//        dataSource, repository,
-//        filterSp,
-//        stateSp,
-//        sortSp,
-//        directionSp
-//    )
+class IssueViewModel (val repository: IssueRepository) : BaseRefreshViewModel<Issue>(repository) {
 
     fun changeFilter(filter: String) {
         if (filterSp == filter) {
             return
         }
         filterSp = filter
-
-//        if (mDataSourceFactory is IssueDataSourceFactory) {
-//            mDataSourceFactory.changeSearchState(filter, stateSp, sortSp, directionSp)
-//        }
-//        onRefresh()
+        refresh()
     }
 
     fun changeState(state: String) {
@@ -38,11 +27,7 @@ class IssueViewModel (repository: BaseRepository<Issue>) : BaseRefreshViewModel<
             return
         }
         stateSp = state
-
-//        if (mDataSourceFactory is IssueDataSourceFactory) {
-//            mDataSourceFactory.changeSearchState(filterSp, state, sortSp, directionSp)
-//        }
-//        onRefresh()
+        refresh()
     }
 
     fun changeSort(sort: String) {
@@ -50,11 +35,7 @@ class IssueViewModel (repository: BaseRepository<Issue>) : BaseRefreshViewModel<
             return
         }
         sortSp = sort
-
-//        if (mDataSourceFactory is IssueDataSourceFactory) {
-//            mDataSourceFactory.changeSearchState(filterSp, stateSp, sort, directionSp)
-//        }
-//        onRefresh()
+        refresh()
     }
 
     fun changeDirection(direction: String) {
@@ -62,11 +43,7 @@ class IssueViewModel (repository: BaseRepository<Issue>) : BaseRefreshViewModel<
             return
         }
         directionSp = direction
-
-//        if (mDataSourceFactory is IssueDataSourceFactory) {
-//            mDataSourceFactory.changeSearchState(filterSp, stateSp, sortSp, direction)
-//        }
-//        onRefresh()
+        refresh()
     }
 
     companion object {
