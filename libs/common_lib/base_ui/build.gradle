@@ -41,6 +41,8 @@ dependencies {
     api 'androidx.navigation:navigation-runtime:2.1.0'
     api 'com.lwjlol.navigation:keep-fragmentstate:0.0.1'
 
+    implementation 'com.just.agentweb:agentweb:4.1.2'
+
     implementation project(':common_tool')
     implementation project(':common_imageloader')
 

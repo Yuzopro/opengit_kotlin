@@ -7,9 +7,12 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.yuzo.lib.ui.activity.BaseWebActivity
 import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.fragment.BaseLazyFragment
 import com.yuzo.lib.ui.fragment.BaseRefreshFragment
+import com.yuzo.lib.ui.fragment.BaseWebFragment
+import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.http.service.bean.Entrylist
 import com.yuzo.opengit.kotlin.ui.adapter.HomeAdapter
 import com.yuzo.opengit.kotlin.ui.repository.HomeRepository
@@ -50,9 +53,9 @@ class HomeFragment : BaseRefreshFragment<Entrylist, HomeAdapter, HomeViewModel>(
     }
 
     override fun OnItemClick(item: Entrylist?, position: Int) {
-        val uri = Uri.parse(item?.originalUrl)
-        val intent = Intent(Intent.ACTION_VIEW, uri)
-        startActivity(intent)
+        val bundle = Bundle()
+        bundle.putString(BaseWebFragment.KEY_URL, item?.originalUrl!!)
+        nav().navigate(R.id.action_to_web, bundle)
     }
 
     companion object {

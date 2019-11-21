@@ -50,6 +50,30 @@ class MainActivity : AppCompatActivity(), DrawerCoordinateHelper.OnDrawerLockLis
         )
     }
 
+    fun onDrawerItemClick(position: Int) {
+        val nav = Navigation.findNavController(this, R.id.nav_host_fragment)
+        var resId = R.id.action_drawer_to_search
+        when (position) {
+            0 -> {
+                resId = R.id.action_drawer_to_trend
+            }
+            1 -> {
+                resId = R.id.action_drawer_to_track
+            }
+            2 -> {
+                resId = R.id.action_drawer_to_setting
+            }
+            3 -> {
+                resId = R.id.action_drawer_to_about
+            }
+            4 -> {
+            }
+            5 -> {
+            }
+        }
+        nav.navigate(resId)
+    }
+
     companion object {
         fun launch(activity: FragmentActivity) =
             activity.apply {

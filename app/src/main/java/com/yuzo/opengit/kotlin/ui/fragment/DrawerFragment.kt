@@ -6,6 +6,7 @@ import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.databinding.FragmentDrawerBinding
 import com.yuzo.opengit.kotlin.http.service.bean.User
 import com.yuzo.opengit.kotlin.sp.userSp
+import com.yuzo.opengit.kotlin.ui.activity.MainActivity
 import com.yuzo.opengit.kotlin.ui.adapter.DrawerAdapter
 import com.yuzo.opengit.kotlin.ui.bean.DrawerBean
 import kotlinx.android.synthetic.main.fragment_drawer.*
@@ -44,7 +45,8 @@ class DrawerFragment : BaseFragment<FragmentDrawerBinding>(), DrawerAdapter.OnIt
     }
 
     override fun OnItemClick(position: Int) {
-//        NavHostFragment.findNavController(this).navigate(R.id.action_drawer_to_gallery)
+        val hostActivity = activity as MainActivity
+        hostActivity.onDrawerItemClick(position)
     }
 
     override fun onDestroyView() {

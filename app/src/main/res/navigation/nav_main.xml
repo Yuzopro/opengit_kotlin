@@ -12,19 +12,103 @@
         tools:layout="@layout/fragment_main" >
 
         <action
-            android:id="@+id/action_drawer_to_gallery1"
+            android:id="@+id/action_drawer_to_search"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
-            app:destination="@id/nav_gallery" />
+            app:destination="@id/nav_search" />
+
+        <action
+            android:id="@+id/action_drawer_to_trend"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/nav_trend" />
+
+        <action
+            android:id="@+id/action_drawer_to_track"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/nav_track" />
+
+        <action
+            android:id="@+id/action_drawer_to_setting"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/nav_setting" />
+
+        <action
+            android:id="@+id/action_drawer_to_about"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/nav_about" />
+
+        <action
+            android:id="@+id/action_drawer_to_share"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/nav_share" />
+
+        <action
+            android:id="@+id/action_to_web"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/nav_web" />
 
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.yuzo.opengit.kotlin.ui.fragment.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_search"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.SearchFragment"
+        android:label="@string/menu_search"
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/nav_setting"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.SettingFragment"
+        android:label="@string/menu_setting"
+        tools:layout="@layout/fragment_setting" />
+
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.AboutFragment"
+        android:label="@string/menu_about"
+        tools:layout="@layout/fragment_about" />
+
+    <fragment
+        android:id="@+id/nav_track"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.TrackFragment"
+        android:label="@string/menu_track"
+        tools:layout="@layout/fragment_track" />
+
+    <fragment
+        android:id="@+id/nav_trend"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.TrendFragment"
+        android:label="@string/menu_trend"
+        tools:layout="@layout/fragment_trend" />
+
+    <fragment
+        android:id="@+id/nav_share"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.ShareFragment"
+        android:label="@string/menu_share"
+        tools:layout="@layout/fragment_share" />
+
+    <fragment
+        android:id="@+id/nav_web"
+        android:name="com.yuzo.lib.ui.fragment.BaseWebFragment"
+        android:label="@string/menu_share"
+        tools:layout="@layout/fragment_web" />
 
 </navigation>

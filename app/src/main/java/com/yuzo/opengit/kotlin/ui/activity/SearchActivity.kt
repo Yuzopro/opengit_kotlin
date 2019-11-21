@@ -14,7 +14,7 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.fragment_tools)
+        setContentView(R.layout.fragment_about)
     }
 
     companion object {

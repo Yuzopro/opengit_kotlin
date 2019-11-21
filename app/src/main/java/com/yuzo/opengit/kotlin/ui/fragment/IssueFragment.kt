@@ -1,7 +1,6 @@
 package com.yuzo.opengit.kotlin.ui.fragment
 
-import android.content.Intent
-import android.net.Uri
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.lxj.xpopup.XPopup
+import com.yuzo.lib.ui.activity.BaseWebActivity
 import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.fragment.BaseRefreshFragment
+import com.yuzo.lib.ui.fragment.BaseWebFragment
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.http.service.bean.Issue
 import com.yuzo.opengit.kotlin.sp.directionSp
@@ -57,9 +58,9 @@ class IssueFragment : BaseRefreshFragment<Issue, IssueAdapter, IssueViewModel>()
     }
 
     override fun OnItemClick(item: Issue?, position: Int) {
-        val uri = Uri.parse(item?.url)
-        val intent = Intent(Intent.ACTION_VIEW, uri)
-        startActivity(intent)
+        val bundle = Bundle()
+        bundle.putString(BaseWebFragment.KEY_URL, item?.html_url!!)
+        nav().navigate(R.id.action_to_web, bundle)
     }
 
     override fun getFixView(parent: ViewGroup): View? {

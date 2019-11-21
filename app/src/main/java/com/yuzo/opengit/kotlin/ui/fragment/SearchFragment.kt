@@ -10,11 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.ui.DrawerCoordinateHelper
-import com.yuzo.opengit.kotlin.ui.viewmodel.ShareViewModel
+import com.yuzo.opengit.kotlin.ui.viewmodel.SearchViewModel
 
-class ShareFragment : Fragment() {
+class SearchFragment : Fragment() {
 
-    private lateinit var galleryViewModel: ShareViewModel
+    private lateinit var galleryViewModel: SearchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class ShareFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         galleryViewModel =
-            ViewModelProviders.of(this).get(ShareViewModel::class.java)
+            ViewModelProviders.of(this).get(SearchViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_search, container, false)
         val textView: TextView = root.findViewById(R.id.text_gallery)
         galleryViewModel.text.observe(this, Observer {

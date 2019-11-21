@@ -1,2 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yuzo.lib.ui" />
+    package="com.yuzo.lib.ui" >
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application>
+        <activity android:name=".activity.BaseWebActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+    </application>
+</manifest>

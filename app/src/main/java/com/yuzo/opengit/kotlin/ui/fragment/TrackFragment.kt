@@ -10,11 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.ui.DrawerCoordinateHelper
-import com.yuzo.opengit.kotlin.ui.viewmodel.ShareViewModel
+import com.yuzo.opengit.kotlin.ui.viewmodel.TrackViewModel
 
-class ShareFragment : Fragment() {
+class TrackFragment : Fragment() {
 
-    private lateinit var galleryViewModel: ShareViewModel
+    private lateinit var shareViewModel: TrackViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,11 +27,11 @@ class ShareFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        galleryViewModel =
-            ViewModelProviders.of(this).get(ShareViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_search, container, false)
-        val textView: TextView = root.findViewById(R.id.text_gallery)
-        galleryViewModel.text.observe(this, Observer {
+        shareViewModel =
+            ViewModelProviders.of(this).get(TrackViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_track, container, false)
+        val textView: TextView = root.findViewById(R.id.text_share)
+        shareViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root
