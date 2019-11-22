@@ -1,0 +1,30 @@
+package com.yuzo.opengit.kotlin.ui.fragment.search
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.yuzo.opengit.kotlin.http.service.bean.User
+import com.yuzo.opengit.kotlin.ui.adapter.UserAdapter
+import com.yuzo.opengit.kotlin.ui.repository.search.SearchUserRepository
+import com.yuzo.opengit.kotlin.ui.viewmodel.search.SearchUserViewModel
+
+/**
+ * Author: yuzo
+ * Date: 2019-10-12
+ */
+class SearchUserFragment : SearchItemFragment<User, UserAdapter, SearchUserViewModel>() {
+    override var mAdapter: UserAdapter = UserAdapter()
+
+    override fun getViewModel(): SearchUserViewModel {
+        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return SearchUserViewModel(SearchUserRepository()) as T
+            }
+        })[SearchUserViewModel::class.java]
+    }
+
+    companion object {
+        private const val TAG = "SearchIssueFragment"
+
+    }
+}

@@ -1,5 +1,6 @@
 package com.yuzo.lib.ui.repository
 
+import android.util.Log.v
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -10,12 +11,14 @@ import com.yuzo.lib.ui.paging.BasePositionalDataSource
  * Author: yuzo
  * Date: 2019-11-14
  */
-abstract class AbsRepository<T, S : BasePositionalDataSource<T>> : BaseRepository<T>  {
-    abstract fun getDataSourceFactory() : AbsDataSourceFactory<T, S>
+abstract class AbsRepository<T, S : BasePositionalDataSource<T>> : BaseRepository<T> {
+    abstract fun getDataSourceFactory(): AbsDataSourceFactory<T, S>
 
-    lateinit var sourceFactory : AbsDataSourceFactory<T, S>
+    lateinit var sourceFactory: AbsDataSourceFactory<T, S>
 
     override fun post(state: Int, pageSize: Int): Listing<T> {
+        v(TAG, "post")
+
         sourceFactory = getDataSourceFactory()
 
         val config = PagedList.Config.Builder()
@@ -41,5 +44,9 @@ abstract class AbsRepository<T, S : BasePositionalDataSource<T>> : BaseRepositor
                 sourceFactory.sourceLiveData.value?.invalidate()
             }
         )
+    }
+
+    companion object {
+        private const val TAG = "AbsRepository"
     }
 }

@@ -4,6 +4,7 @@ import com.yuzo.lib.http.BaseHttpClient
 import com.yuzo.opengit.kotlin.http.interceptor.BasicAuthInterceptor
 import com.yuzo.opengit.kotlin.http.service.IssueService
 import com.yuzo.opengit.kotlin.http.service.LoginService
+import com.yuzo.opengit.kotlin.http.service.SearchService
 import com.yuzo.opengit.kotlin.http.service.UserService
 import okhttp3.Interceptor
 import retrofit2.Retrofit
@@ -16,11 +17,13 @@ class HttpClient : BaseHttpClient() {
     lateinit var loginService: LoginService
     lateinit var userService: UserService
     lateinit var issueService: IssueService
+    lateinit var searchService: SearchService
 
     override fun create(retrofit: Retrofit) {
         loginService = retrofit.create(LoginService::class.java)
         userService = retrofit.create(UserService::class.java)
         issueService = retrofit.create(IssueService::class.java)
+        searchService = retrofit.create(SearchService::class.java)
     }
 
     override fun getAuthInterceptor(): Interceptor? = BasicAuthInterceptor()

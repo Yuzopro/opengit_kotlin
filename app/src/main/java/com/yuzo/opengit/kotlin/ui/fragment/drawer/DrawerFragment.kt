@@ -1,4 +1,4 @@
-package com.yuzo.opengit.kotlin.ui.fragment
+package com.yuzo.opengit.kotlin.ui.fragment.drawer
 
 import com.google.gson.Gson
 import com.yuzo.lib.ui.fragment.BaseFragment

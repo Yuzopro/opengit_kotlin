@@ -1,7 +1,5 @@
 package com.yuzo.lib.ui.fragment
 
-import android.util.Log
-import android.util.Log.v
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
@@ -51,7 +49,6 @@ abstract class BaseRefreshFragment<T, A : BasePagedAdapter<T>, V : BaseRefreshVi
                 hideException()
             }
         })
-
     }
 
     override fun initView() {
@@ -68,12 +65,17 @@ abstract class BaseRefreshFragment<T, A : BasePagedAdapter<T>, V : BaseRefreshVi
 
     override fun onFirstUserVisible() {
         super.onFirstUserVisible()
-        mViewModel.doAction(1)
+
+        if (isFirstRun()) {
+            mViewModel.doAction(1)
+        }
     }
 
     open fun getFixView(parent: ViewGroup): View? {
         return null
     }
+
+    open fun isFirstRun(): Boolean = true
 
     private fun addFixView(view: View?) {
         if (view != null) {
@@ -84,7 +86,7 @@ abstract class BaseRefreshFragment<T, A : BasePagedAdapter<T>, V : BaseRefreshVi
         }
     }
 
-    private fun showException(isError: Boolean) {
+    open fun showException(isError: Boolean) {
         cl_exception?.visibility = View.VISIBLE
         if (isError) {
             iv_base_refresh_error?.setImageResource(R.drawable.ic_network_error)

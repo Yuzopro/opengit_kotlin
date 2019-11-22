@@ -1,4 +1,4 @@
-package com.yuzo.opengit.kotlin.ui.fragment
+package com.yuzo.opengit.kotlin.ui.fragment.drawer
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,11 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.ui.DrawerCoordinateHelper
-import com.yuzo.opengit.kotlin.ui.viewmodel.AboutViewModel
+import com.yuzo.opengit.kotlin.ui.viewmodel.drawer.TrendViewModel
 
-class AboutFragment : Fragment() {
+class TrendFragment : Fragment() {
 
-    private lateinit var toolsViewModel: AboutViewModel
+    private lateinit var sendViewModel: TrendViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,11 +27,11 @@ class AboutFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        toolsViewModel =
-            ViewModelProviders.of(this).get(AboutViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_about, container, false)
-        val textView: TextView = root.findViewById(R.id.text_tools)
-        toolsViewModel.text.observe(this, Observer {
+        sendViewModel =
+            ViewModelProviders.of(this).get(TrendViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_trend, container, false)
+        val textView: TextView = root.findViewById(R.id.text_send)
+        sendViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root

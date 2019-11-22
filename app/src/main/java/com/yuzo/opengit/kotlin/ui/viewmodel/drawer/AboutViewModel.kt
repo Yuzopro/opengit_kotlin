@@ -1,4 +1,4 @@
-package com.yuzo.opengit.kotlin.ui.viewmodel
+package com.yuzo.opengit.kotlin.ui.viewmodel.drawer
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

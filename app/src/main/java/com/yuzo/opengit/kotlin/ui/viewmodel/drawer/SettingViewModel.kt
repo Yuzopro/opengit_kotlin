@@ -1,13 +1,13 @@
-package com.yuzo.opengit.kotlin.ui.viewmodel
+package com.yuzo.opengit.kotlin.ui.viewmodel.drawer
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class TrackViewModel : ViewModel() {
+class SettingViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is track Fragment"
+        value = "This is setting Fragment"
     }
     val text: LiveData<String> = _text
 }

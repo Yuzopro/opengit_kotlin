@@ -39,4 +39,10 @@
     <string name="drawer_item_about">关于</string>
     <string name="drawer_item_share">分享</string>
     <string name="drawer_item_logout">注销</string>
+
+    <string name="search_edittext_hint">搜索你关心的内容</string>
+    <string name="search_item_0">项目</string>
+    <string name="search_item_1">用户</string>
+    <string name="search_item_2">问题</string>
+    <string name="search_text_is_not_null">搜索内容不能为空</string>
 </resources>

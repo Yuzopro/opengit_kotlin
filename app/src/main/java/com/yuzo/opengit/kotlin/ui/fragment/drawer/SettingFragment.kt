@@ -1,4 +1,4 @@
-package com.yuzo.opengit.kotlin.ui.fragment
+package com.yuzo.opengit.kotlin.ui.fragment.drawer
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.ui.DrawerCoordinateHelper
-import com.yuzo.opengit.kotlin.ui.viewmodel.SettingViewModel
+import com.yuzo.opengit.kotlin.ui.viewmodel.drawer.SettingViewModel
 
 class SettingFragment : Fragment() {
 

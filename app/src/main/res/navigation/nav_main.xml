@@ -71,37 +71,37 @@
 
     <fragment
         android:id="@+id/nav_search"
-        android:name="com.yuzo.opengit.kotlin.ui.fragment.SearchFragment"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.search.SearchFragment"
         android:label="@string/menu_search"
         tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/nav_setting"
-        android:name="com.yuzo.opengit.kotlin.ui.fragment.SettingFragment"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.drawer.SettingFragment"
         android:label="@string/menu_setting"
         tools:layout="@layout/fragment_setting" />
 
     <fragment
         android:id="@+id/nav_about"
-        android:name="com.yuzo.opengit.kotlin.ui.fragment.AboutFragment"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.drawer.AboutFragment"
         android:label="@string/menu_about"
         tools:layout="@layout/fragment_about" />
 
     <fragment
         android:id="@+id/nav_track"
-        android:name="com.yuzo.opengit.kotlin.ui.fragment.TrackFragment"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.drawer.TrackFragment"
         android:label="@string/menu_track"
         tools:layout="@layout/fragment_track" />
 
     <fragment
         android:id="@+id/nav_trend"
-        android:name="com.yuzo.opengit.kotlin.ui.fragment.TrendFragment"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.drawer.TrendFragment"
         android:label="@string/menu_trend"
         tools:layout="@layout/fragment_trend" />
 
     <fragment
         android:id="@+id/nav_share"
-        android:name="com.yuzo.opengit.kotlin.ui.fragment.ShareFragment"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.drawer.ShareFragment"
         android:label="@string/menu_share"
         tools:layout="@layout/fragment_share" />
 

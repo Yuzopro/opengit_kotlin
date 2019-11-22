@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/drawerFragment"
-        android:name="com.yuzo.opengit.kotlin.ui.fragment.DrawerFragment"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.drawer.DrawerFragment"
         android:label="fragment_drawer"
         tools:layout="@layout/fragment_drawer"/>
 
