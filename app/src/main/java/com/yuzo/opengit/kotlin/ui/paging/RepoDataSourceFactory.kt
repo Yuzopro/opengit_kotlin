@@ -12,8 +12,8 @@ import com.yuzo.opengit.kotlin.ui.repository.RepoRepository
  * Author: yuzo
  * Date: 2019-10-09
  */
-class RepoDataSourceFactory(val name: String?) : AbsDataSourceFactory<Repo, RepoDataSource>() {
-    override fun getDataSource(): RepoDataSource = RepoDataSource(name)
+class RepoDataSourceFactory(val name: String?,params : Map<String, Any>) : AbsDataSourceFactory<Repo, RepoDataSource>(params) {
+    override fun getDataSource(params : Map<String, Any>): RepoDataSource = RepoDataSource(name, params)
 
     companion object {
         private const val TAG = "RepoDataSourceFactory"

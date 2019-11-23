@@ -14,8 +14,8 @@ import com.yuzo.opengit.kotlin.ui.paging.search.SearchUserDataSourceFactory
  * Date: 2019-10-09
  */
 class SearchUserRepository : AbsRepository<User, SearchUserDataSource>() {
-    override fun getDataSourceFactory(): AbsDataSourceFactory<User, SearchUserDataSource> =
-        SearchUserDataSourceFactory()
+    override fun getDataSourceFactory(params : Map<String, Any>): AbsDataSourceFactory<User, SearchUserDataSource> =
+        SearchUserDataSourceFactory(params)
 
     companion object {
         private const val TAG = "IssueRepository"

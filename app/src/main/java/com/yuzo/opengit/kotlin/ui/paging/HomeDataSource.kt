@@ -12,7 +12,7 @@ import java.io.IOException
  * Author: yuzo
  * Date: 2019-10-09
  */
-class HomeDataSource : BasePositionalDataSource<Entrylist>() {
+class HomeDataSource(params : Map<String, Any>) : BasePositionalDataSource<Entrylist>() {
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Entrylist>) {
         v(TAG, "loadInitial")

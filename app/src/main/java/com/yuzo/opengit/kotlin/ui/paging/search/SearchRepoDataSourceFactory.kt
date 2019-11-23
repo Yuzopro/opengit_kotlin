@@ -7,8 +7,8 @@ import com.yuzo.opengit.kotlin.http.service.bean.Repo
  * Author: yuzo
  * Date: 2019-10-09
  */
-class SearchRepoDataSourceFactory : AbsDataSourceFactory<Repo, SearchRepoDataSource>() {
-    override fun getDataSource(): SearchRepoDataSource = SearchRepoDataSource()
+class SearchRepoDataSourceFactory(params : Map<String, Any>) : AbsDataSourceFactory<Repo, SearchRepoDataSource>(params) {
+    override fun getDataSource(params : Map<String, Any>): SearchRepoDataSource = SearchRepoDataSource(params)
 
     companion object {
         private const val TAG = "RepoDataSourceFactory"

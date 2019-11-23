@@ -12,14 +12,12 @@ import com.yuzo.lib.ui.paging.BasePositionalDataSource
  * Date: 2019-11-14
  */
 abstract class AbsRepository<T, S : BasePositionalDataSource<T>> : BaseRepository<T> {
-    abstract fun getDataSourceFactory(): AbsDataSourceFactory<T, S>
+    abstract fun getDataSourceFactory(params : Map<String, Any>): AbsDataSourceFactory<T, S>
 
     lateinit var sourceFactory: AbsDataSourceFactory<T, S>
 
-    override fun post(state: Int, pageSize: Int): Listing<T> {
-        v(TAG, "post")
-
-        sourceFactory = getDataSourceFactory()
+    override fun post(params : Map<String, Any>, pageSize: Int): Listing<T> {
+        sourceFactory = getDataSourceFactory(params)
 
         val config = PagedList.Config.Builder()
             .setPageSize(pageSize)    //每页显示的词条数

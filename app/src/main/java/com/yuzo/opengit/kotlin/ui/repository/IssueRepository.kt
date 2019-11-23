@@ -11,8 +11,8 @@ import com.yuzo.opengit.kotlin.ui.paging.IssueDataSourceFactory
  * Date: 2019-10-09
  */
 class IssueRepository : AbsRepository<Issue, IssueDataSource>() {
-    override fun getDataSourceFactory(): AbsDataSourceFactory<Issue, IssueDataSource> =
-        IssueDataSourceFactory()
+    override fun getDataSourceFactory(params : Map<String, Any>): AbsDataSourceFactory<Issue, IssueDataSource> =
+        IssueDataSourceFactory(params)
 
     companion object {
         private const val TAG = "IssueRepository"

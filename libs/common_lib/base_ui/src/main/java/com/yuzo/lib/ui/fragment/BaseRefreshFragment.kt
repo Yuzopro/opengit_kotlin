@@ -67,7 +67,7 @@ abstract class BaseRefreshFragment<T, A : BasePagedAdapter<T>, V : BaseRefreshVi
         super.onFirstUserVisible()
 
         if (isFirstRun()) {
-            mViewModel.doAction(1)
+            mViewModel.doAction("init", "")
         }
     }
 

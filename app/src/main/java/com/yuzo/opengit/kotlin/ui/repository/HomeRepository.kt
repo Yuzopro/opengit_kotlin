@@ -11,6 +11,6 @@ import com.yuzo.opengit.kotlin.ui.paging.HomeDataSourceFactory
  * Date: 2019-11-14
  */
 class HomeRepository : AbsRepository<Entrylist, HomeDataSource>() {
-    override fun getDataSourceFactory(): AbsDataSourceFactory<Entrylist, HomeDataSource> =
-        HomeDataSourceFactory()
+    override fun getDataSourceFactory(params : Map<String, Any>): AbsDataSourceFactory<Entrylist, HomeDataSource> =
+        HomeDataSourceFactory(params)
 }

@@ -12,7 +12,7 @@ import java.io.IOException
  * Author: yuzo
  * Date: 2019-10-09
  */
-class RepoDataSource(val name: String?) : BasePositionalDataSource<Repo>() {
+class RepoDataSource(val name: String?, params : Map<String, Any>) : BasePositionalDataSource<Repo>() {
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Repo>) {
         v(TAG, "loadInitial")

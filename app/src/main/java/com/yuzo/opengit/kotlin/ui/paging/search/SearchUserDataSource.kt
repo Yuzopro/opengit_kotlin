@@ -11,10 +11,10 @@ import java.io.IOException
  * Author: yuzo
  * Date: 2019-10-09
  */
-class SearchUserDataSource : BasePositionalDataSource<User>() {
+class SearchUserDataSource(val params : Map<String, Any>) : BasePositionalDataSource<User>() {
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<User>) {
         val request = HttpClient.getInstance().searchService.searchUser(
-            "Yuzo",
+            this.params["q"] as String,
             1,
             params.requestedLoadSize
         )
@@ -45,7 +45,7 @@ class SearchUserDataSource : BasePositionalDataSource<User>() {
         val page = params.startPosition / params.loadSize
 
         val request = HttpClient.getInstance().searchService.searchUser(
-            "Yuzo",
+            this.params["q"] as String,
             page,
             params.loadSize
         )

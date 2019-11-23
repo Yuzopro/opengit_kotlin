@@ -7,8 +7,8 @@ import com.yuzo.opengit.kotlin.http.service.bean.Issue
  * Author: yuzo
  * Date: 2019-10-09
  */
-class IssueDataSourceFactory : AbsDataSourceFactory<Issue, IssueDataSource>() {
-    override fun getDataSource(): IssueDataSource = IssueDataSource()
+class IssueDataSourceFactory(params : Map<String, Any>) : AbsDataSourceFactory<Issue, IssueDataSource>(params) {
+    override fun getDataSource(params : Map<String, Any>): IssueDataSource = IssueDataSource(params)
 
     companion object {
         private const val TAG = "IssueDataSourceFactory"

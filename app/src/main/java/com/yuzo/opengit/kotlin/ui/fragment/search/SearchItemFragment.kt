@@ -10,7 +10,6 @@ import com.yuzo.lib.ui.viewmodel.BaseRefreshViewModel
  */
 abstract class SearchItemFragment<T, A : BasePagedAdapter<T>, V : BaseRefreshViewModel<T>> :
     BaseRefreshFragment<T, A, V>() {
-    private var text: String? = null
 
     override fun isFirstRun(): Boolean = false
 
@@ -21,11 +20,6 @@ abstract class SearchItemFragment<T, A : BasePagedAdapter<T>, V : BaseRefreshVie
     }
 
     fun doSearch(text: String) {
-        if (this.text.isNullOrEmpty()) {
-            mViewModel.doAction(1)
-        } else {
-            mViewModel.refresh()
-        }
-        this.text = text
+        mViewModel.doAction("q", text)
     }
 }

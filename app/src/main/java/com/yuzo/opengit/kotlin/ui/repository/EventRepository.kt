@@ -21,7 +21,7 @@ class EventRepository : AbsRepository<Event, EventDataSource>() {
         user = Gson().fromJson(userSp, User::class.java)
     }
 
-    override fun getDataSourceFactory(): AbsDataSourceFactory<Event, EventDataSource> = EventDataSourceFactory(user?.login)
+    override fun getDataSourceFactory(params : Map<String, Any>): AbsDataSourceFactory<Event, EventDataSource> = EventDataSourceFactory(user?.login, params)
 
     companion object {
         private const val TAG = "EventRepository"

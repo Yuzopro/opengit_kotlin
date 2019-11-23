@@ -21,7 +21,7 @@ class RepoRepository  : AbsRepository<Repo, RepoDataSource>() {
         user = Gson().fromJson(userSp, User::class.java)
     }
 
-    override fun getDataSourceFactory(): AbsDataSourceFactory<Repo, RepoDataSource> = RepoDataSourceFactory(user?.login)
+    override fun getDataSourceFactory(params : Map<String, Any>): AbsDataSourceFactory<Repo, RepoDataSource> = RepoDataSourceFactory(user?.login, params)
 
     companion object {
         private const val TAG = "RepoRepository"

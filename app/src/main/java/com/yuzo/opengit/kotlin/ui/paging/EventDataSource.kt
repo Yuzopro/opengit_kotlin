@@ -12,7 +12,7 @@ import java.io.IOException
  * Author: yuzo
  * Date: 2019-10-09
  */
-class EventDataSource(val name: String?) : BasePositionalDataSource<Event>() {
+class EventDataSource(val name: String?, params : Map<String, Any>) : BasePositionalDataSource<Event>() {
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Event>) {
         v(TAG, "loadInitial")

@@ -91,6 +91,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             doSearch()
         }
 
+        iv_search_clear_text?.setOnClickListener {
+            et_search_content?.setText("")
+        }
+
         et_search_content?.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 doSearch()

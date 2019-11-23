@@ -7,8 +7,8 @@ import com.yuzo.opengit.kotlin.http.service.bean.Entrylist
  * Author: yuzo
  * Date: 2019-10-09
  */
-class HomeDataSourceFactory : AbsDataSourceFactory<Entrylist, HomeDataSource>() {
-    override fun getDataSource(): HomeDataSource = HomeDataSource()
+class HomeDataSourceFactory(params : Map<String, Any>) : AbsDataSourceFactory<Entrylist, HomeDataSource>(params) {
+    override fun getDataSource(params : Map<String, Any>): HomeDataSource = HomeDataSource(params)
 
     companion object {
         private const val TAG = "HomeDataSourceFactory"

@@ -15,7 +15,7 @@ import java.io.IOException
  * Author: yuzo
  * Date: 2019-10-09
  */
-class IssueDataSource : BasePositionalDataSource<Issue>() {
+class IssueDataSource(params : Map<String, Any>) : BasePositionalDataSource<Issue>() {
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Issue>) {
         val request = HttpClient.getInstance().issueService
