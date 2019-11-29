@@ -45,4 +45,13 @@
     <string name="search_item_1">用户</string>
     <string name="search_item_2">问题</string>
     <string name="search_text_is_not_null">搜索内容不能为空</string>
+
+    <string name="about_text_version">Version %1$s</string>
+    <string name="about_text_github">Github</string>
+    <string name="about_text_author">作者</string>
+    <string name="about_text_thanks">鸣谢</string>
+    <string name="about_text_blog">博客</string>
+    <string name="about_text_juejin">掘金</string>
+    <string name="about_text_jianshu">简书</string>
+    <string name="about_text_csdn">CSDN</string>
 </resources>

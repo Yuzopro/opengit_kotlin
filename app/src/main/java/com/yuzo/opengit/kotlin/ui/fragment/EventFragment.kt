@@ -1,11 +1,14 @@
 package com.yuzo.opengit.kotlin.ui.fragment
 
+import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.fragment.BaseRefreshFragment
+import com.yuzo.lib.ui.fragment.BaseWebFragment
 import com.yuzo.lib.ui.viewmodel.BaseRefreshViewModel
+import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.http.service.bean.Event
 import com.yuzo.opengit.kotlin.ui.adapter.EventAdapter
 import com.yuzo.opengit.kotlin.ui.repository.EventRepository
@@ -42,9 +45,22 @@ class EventFragment : BaseRefreshFragment<Event, EventAdapter, EventViewModel>()
     }
 
     override fun OnItemClick(item: Event?, position: Int) {
-//        val uri = Uri.parse(item?)
-//        val intent = Intent(Intent.ACTION_VIEW, uri)
-//        startActivity(intent)
+        item?.apply {
+
+            var url: String? = ""
+            if (payload != null && payload.issue != null) {
+                url = payload?.issue?.url
+            } else if (repo != null) {
+                url = repo.url
+            }
+
+            url?.apply {
+                val bundle = Bundle()
+                bundle.putString(BaseWebFragment.KEY_URL, this.replace("https://api.github.com/repos/", "https://github.com/"))
+                nav().navigate(R.id.action_to_web, bundle)
+            }
+
+        }
     }
 
     companion object {

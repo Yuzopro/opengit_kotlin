@@ -59,6 +59,10 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
         return NavHostFragment.findNavController(this)
     }
 
+    protected fun pop() {
+        nav().popBackStack()
+    }
+
     open fun showLoading() {
         activity?.apply {
             if (!isFinishing) {

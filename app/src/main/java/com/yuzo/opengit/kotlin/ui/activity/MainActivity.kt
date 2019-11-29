@@ -7,6 +7,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
+import com.yuzo.lib.ui.fragment.BaseWebFragment
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.ui.DrawerCoordinateHelper
 import kotlinx.android.synthetic.main.activity_main.*
@@ -52,26 +53,32 @@ class MainActivity : AppCompatActivity(), DrawerCoordinateHelper.OnDrawerLockLis
 
     fun onDrawerItemClick(position: Int) {
         val nav = Navigation.findNavController(this, R.id.nav_host_fragment)
-        var resId = R.id.action_drawer_to_search
         when (position) {
             0 -> {
-                resId = R.id.action_drawer_to_trend
+                openWeb("https://github.com/trending")
             }
             1 -> {
-                resId = R.id.action_drawer_to_track
+                nav.navigate(R.id.action_drawer_to_about)
             }
             2 -> {
-                resId = R.id.action_drawer_to_setting
+//                nav.navigate(R.id.action_drawer_to_setting)
             }
             3 -> {
-                resId = R.id.action_drawer_to_about
+//                nav.navigate(R.id.action_drawer_to_about)
             }
             4 -> {
             }
             5 -> {
             }
         }
-        nav.navigate(resId)
+    }
+
+    fun openWeb(url : String) {
+        val nav = Navigation.findNavController(this, R.id.nav_host_fragment)
+
+        val bundle = Bundle()
+        bundle.putString(BaseWebFragment.KEY_URL, url)
+        nav.navigate(R.id.action_to_drawer_web, bundle)
     }
 
     companion object {

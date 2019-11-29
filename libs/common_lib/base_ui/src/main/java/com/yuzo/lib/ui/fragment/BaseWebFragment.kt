@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.layout_toolbar_web.*
  * Author: yuzo
  * Date: 2019-11-21
  */
-class BaseWebFragment : BaseAgentWebFragment<FragmentWebBinding>(), View.OnClickListener {
+open class BaseWebFragment : BaseAgentWebFragment<FragmentWebBinding>(), View.OnClickListener {
     override val layoutId: Int = R.layout.fragment_web
 
     override fun getAgentWebParent(): ViewGroup {

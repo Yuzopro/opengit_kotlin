@@ -5,7 +5,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -45,35 +44,12 @@
                 tools:text="right title" />
         </RelativeLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:contentDescription="@null"
-            android:src="@drawable/icon_app_logo" />
-
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textColor="@color/color_title"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_about_version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/color_title"
-            tools:text="@string/about_text_version" />
-
-        <TextView
-            android:id="@+id/tv_about_github"
+            android:id="@+id/tv_author_github"
             android:layout_width="match_parent"
             android:layout_height="@dimen/header_height"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:drawableEnd="@drawable/icon_right_arrow"
             android:gravity="center_vertical"
             android:text="@string/about_text_github"
@@ -81,26 +57,50 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tv_about_author"
+            android:id="@+id/tv_author_blog"
             android:layout_width="match_parent"
             android:layout_height="@dimen/header_height"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:drawableEnd="@drawable/icon_right_arrow"
             android:gravity="center_vertical"
-            android:text="@string/about_text_author"
+            android:text="@string/about_text_blog"
             android:textColor="@color/color_title"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tv_about_thanks"
+            android:id="@+id/tv_author_juejin"
             android:layout_width="match_parent"
             android:layout_height="@dimen/header_height"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:drawableEnd="@drawable/icon_right_arrow"
             android:gravity="center_vertical"
-            android:text="@string/about_text_thanks"
+            android:text="@string/about_text_juejin"
+            android:textColor="@color/color_title"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_author_jianshu"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/header_height"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:drawableEnd="@drawable/icon_right_arrow"
+            android:gravity="center_vertical"
+            android:text="@string/about_text_jianshu"
+            android:textColor="@color/color_title"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_author_csdn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/header_height"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:drawableEnd="@drawable/icon_right_arrow"
+            android:gravity="center_vertical"
+            android:text="@string/about_text_csdn"
             android:textColor="@color/color_title"
             android:textSize="16sp" />
 

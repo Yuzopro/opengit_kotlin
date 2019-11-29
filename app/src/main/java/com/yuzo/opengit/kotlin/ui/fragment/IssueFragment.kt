@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.lxj.xpopup.XPopup
-import com.yuzo.lib.ui.activity.BaseWebActivity
 import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.fragment.BaseRefreshFragment
 import com.yuzo.lib.ui.fragment.BaseWebFragment

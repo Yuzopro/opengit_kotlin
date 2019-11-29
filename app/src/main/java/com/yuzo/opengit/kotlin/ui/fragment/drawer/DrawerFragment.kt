@@ -1,7 +1,9 @@
 package com.yuzo.opengit.kotlin.ui.fragment.drawer
 
+import android.os.Bundle
 import com.google.gson.Gson
 import com.yuzo.lib.ui.fragment.BaseFragment
+import com.yuzo.lib.ui.fragment.BaseWebFragment
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.databinding.FragmentDrawerBinding
 import com.yuzo.opengit.kotlin.http.service.bean.User
@@ -20,6 +22,8 @@ class DrawerFragment : BaseFragment<FragmentDrawerBinding>(), DrawerAdapter.OnIt
 
     private var adapter: DrawerAdapter? = null
 
+    private var user: User? = null
+
     override fun initView() {
         super.initView()
 
@@ -29,19 +33,25 @@ class DrawerFragment : BaseFragment<FragmentDrawerBinding>(), DrawerAdapter.OnIt
 
         val list: MutableList<DrawerBean> = ArrayList()
         list.add(DrawerBean(R.drawable.icon_trend, R.string.drawer_item_trend))
-        list.add(DrawerBean(R.drawable.icon_track, R.string.drawer_item_track))
-        list.add(DrawerBean(R.drawable.icon_setting, R.string.drawer_item_setting))
+//        list.add(DrawerBean(R.drawable.icon_track, R.string.drawer_item_track))
+//        list.add(DrawerBean(R.drawable.icon_setting, R.string.drawer_item_setting))
         list.add(DrawerBean(R.drawable.icon_about, R.string.drawer_item_about))
         list.add(DrawerBean(R.drawable.icon_share, R.string.drawer_item_share))
         list.add(DrawerBean(R.drawable.icon_logout, R.string.drawer_item_logout))
 
         adapter!!.addDatas(list)
+
+        iv_nav_header_avatar?.setOnClickListener {
+            val hostActivity = activity as MainActivity
+            hostActivity.openWeb(user?.htmlUrl!!)
+        }
     }
 
     override fun initData(binding: FragmentDrawerBinding) {
         super.initData(binding)
 
-        binding.user = Gson().fromJson(userSp, User::class.java)
+        user = Gson().fromJson(userSp, User::class.java)
+        binding.user = user
     }
 
     override fun OnItemClick(position: Int) {

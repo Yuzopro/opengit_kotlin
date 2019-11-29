@@ -67,13 +67,31 @@
             app:popExitAnim="@anim/slide_out_right"
             app:destination="@id/nav_web" />
 
+        <action
+            android:id="@+id/action_to_drawer_web"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/nav_drawer_web" />
+
     </fragment>
 
     <fragment
         android:id="@+id/nav_search"
         android:name="com.yuzo.opengit.kotlin.ui.fragment.search.SearchFragment"
         android:label="@string/menu_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+
+        <action
+            android:id="@+id/action_search_to_web"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/nav_web" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/nav_setting"
@@ -83,9 +101,33 @@
 
     <fragment
         android:id="@+id/nav_about"
-        android:name="com.yuzo.opengit.kotlin.ui.fragment.drawer.AboutFragment"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.about.AboutFragment"
         android:label="@string/menu_about"
-        tools:layout="@layout/fragment_about" />
+        tools:layout="@layout/fragment_about">
+        <action
+            android:id="@+id/action_about_to_web"
+            app:destination="@id/nav_web"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_about_to_author"
+            app:destination="@id/nav_author"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_about_to_thanks"
+            app:destination="@id/nav_thanks"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_track"
@@ -110,5 +152,33 @@
         android:name="com.yuzo.lib.ui.fragment.BaseWebFragment"
         android:label="@string/menu_share"
         tools:layout="@layout/fragment_web" />
+
+    <fragment
+        android:id="@+id/nav_drawer_web"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.drawer.DrawerWebFragment"
+        android:label="@string/menu_share"
+        tools:layout="@layout/fragment_web" />
+
+    <fragment
+        android:id="@+id/nav_author"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.about.AuthorFragment"
+        android:label="@string/menu_share"
+        tools:layout="@layout/fragment_author" >
+
+        <action
+            android:id="@+id/action_author_to_web"
+            app:destination="@id/nav_web"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_thanks"
+        android:name="com.yuzo.opengit.kotlin.ui.fragment.about.ThanksFragment"
+        android:label="@string/menu_share"
+        tools:layout="@layout/fragment_thanks" />
 
 </navigation>

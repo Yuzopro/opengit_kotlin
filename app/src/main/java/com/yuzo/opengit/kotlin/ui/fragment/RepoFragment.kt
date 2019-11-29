@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.yuzo.lib.ui.activity.BaseWebActivity
 import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.fragment.BaseRefreshFragment
 import com.yuzo.lib.ui.fragment.BaseWebFragment

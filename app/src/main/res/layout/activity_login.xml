@@ -122,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@null"
                     android:layout_gravity="center"
-                    android:src="@drawable/icon_white_back" />
+                    android:src="@drawable/icon_white_back_arrow" />
 
             </FrameLayout>
         </FrameLayout>

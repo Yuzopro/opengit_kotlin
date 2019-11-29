@@ -31,7 +31,7 @@
                 android:contentDescription="@null"
                 android:padding="15dp"
                 android:scaleType="center"
-                android:src="@drawable/icon_white_back" />
+                android:src="@drawable/icon_white_back_arrow" />
 
             <EditText
                 android:id="@+id/et_search_content"

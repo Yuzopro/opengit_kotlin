@@ -1,15 +1,10 @@
 package com.yuzo.opengit.kotlin.ui.fragment
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.yuzo.lib.ui.activity.BaseWebActivity
 import com.yuzo.lib.ui.adapter.BasePagedAdapter
-import com.yuzo.lib.ui.fragment.BaseLazyFragment
 import com.yuzo.lib.ui.fragment.BaseRefreshFragment
 import com.yuzo.lib.ui.fragment.BaseWebFragment
 import com.yuzo.opengit.kotlin.R
@@ -26,11 +21,6 @@ class HomeFragment : BaseRefreshFragment<Entrylist, HomeAdapter, HomeViewModel>(
     BasePagedAdapter.OnItemClickListener<Entrylist> {
 
     override var mAdapter: HomeAdapter = HomeAdapter()
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        Log.v(TAG, "onActivityCreated")
-    }
 
     override fun initView() {
         super.initView()

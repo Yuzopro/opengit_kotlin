@@ -4,10 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_drawer"
-    app:startDestination="@id/drawerFragment">
+    app:startDestination="@id/nav_drawer">
 
     <fragment
-        android:id="@+id/drawerFragment"
+        android:id="@+id/nav_drawer"
         android:name="com.yuzo.opengit.kotlin.ui.fragment.drawer.DrawerFragment"
         android:label="fragment_drawer"
         tools:layout="@layout/fragment_drawer"/>

@@ -9,7 +9,7 @@
         android:id="@+id/rl_header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/header_height"
-        android:background="@color/white"
+        android:background="@color/black"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -24,7 +24,7 @@
             android:scaleType="center"
             android:padding="15dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_black_back" />
+            android:src="@drawable/icon_white_back" />
 
         <View
             android:id="@+id/view_web_line"
@@ -33,7 +33,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:layout_toEndOf="@+id/iv_web_back"
-            android:background="#11000000" />
+            android:background="#11FFFFFF" />
 
         <ImageView
             android:id="@+id/iv_web_close"
@@ -44,14 +44,14 @@
             android:scaleType="center"
             android:padding="15dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_black_close" />
+            android:src="@drawable/icon_white_close" />
 
         <TextView
             android:id="@+id/tv_web_header_center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="14sp"
             tools:text="title" />
 
