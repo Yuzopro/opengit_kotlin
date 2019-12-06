@@ -179,6 +179,16 @@
         android:id="@+id/nav_thanks"
         android:name="com.yuzo.opengit.kotlin.ui.fragment.about.ThanksFragment"
         android:label="@string/menu_share"
-        tools:layout="@layout/fragment_thanks" />
+        tools:layout="@layout/fragment_thanks" >
+
+        <action
+            android:id="@+id/action_thanks_to_web"
+            app:destination="@id/nav_web"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
 
 </navigation>

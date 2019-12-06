@@ -54,4 +54,8 @@
     <string name="about_text_juejin">掘金</string>
     <string name="about_text_jianshu">简书</string>
     <string name="about_text_csdn">CSDN</string>
+
+    <string name="thanks_text_github_api">Github API</string>
+
+    <string name="share_text_download_tips">扫码此二维码，下载OpenGit_Kotlin</string>
 </resources>

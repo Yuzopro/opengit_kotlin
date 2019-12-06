@@ -1,7 +1,10 @@
 package com.yuzo.opengit.kotlin.ui.activity
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -9,6 +12,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
 import com.yuzo.lib.ui.fragment.BaseWebFragment
 import com.yuzo.opengit.kotlin.R
+import com.yuzo.opengit.kotlin.sp.accountSp
+import com.yuzo.opengit.kotlin.sp.passwordSp
+import com.yuzo.opengit.kotlin.sp.tokenSp
+import com.yuzo.opengit.kotlin.sp.userSp
 import com.yuzo.opengit.kotlin.ui.DrawerCoordinateHelper
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -44,10 +51,11 @@ class MainActivity : AppCompatActivity(), DrawerCoordinateHelper.OnDrawerLockLis
 
     override fun onDrawerLock(isUnLock: Boolean) {
         drawer_layout.setDrawerLockMode(
-            if (isUnLock)
+            if (isUnLock) {
                 DrawerLayout.LOCK_MODE_UNLOCKED
-            else
+            } else {
                 DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+            }
         )
     }
 
@@ -61,24 +69,41 @@ class MainActivity : AppCompatActivity(), DrawerCoordinateHelper.OnDrawerLockLis
                 nav.navigate(R.id.action_drawer_to_about)
             }
             2 -> {
-//                nav.navigate(R.id.action_drawer_to_setting)
+                nav.navigate(R.id.action_drawer_to_share)
             }
             3 -> {
-//                nav.navigate(R.id.action_drawer_to_about)
-            }
-            4 -> {
-            }
-            5 -> {
+                drawer_layout?.closeDrawer(GravityCompat.START)
+                drawer_layout?.postDelayed({
+                    showLogoutDialog()
+                }, 200L)
             }
         }
     }
 
-    fun openWeb(url : String) {
+    fun openWeb(url: String) {
         val nav = Navigation.findNavController(this, R.id.nav_host_fragment)
 
         val bundle = Bundle()
         bundle.putString(BaseWebFragment.KEY_URL, url)
         nav.navigate(R.id.action_to_drawer_web, bundle)
+    }
+
+    private fun showLogoutDialog() {
+        val builder = AlertDialog.Builder(this).setTitle("退出登录")
+            .setMessage("确定退出当前账号？").setPositiveButton("确定",
+                DialogInterface.OnClickListener { dialogInterface, i ->
+                    tokenSp = ""
+                    accountSp = ""
+                    passwordSp = ""
+                    userSp = ""
+                    LoginActivity.launch(this@MainActivity)
+                    finish()
+
+                }).setNegativeButton("取消",
+                DialogInterface.OnClickListener { dialogInterface, i ->
+                    dialogInterface.dismiss()
+                })
+        builder.create().show()
     }
 
     companion object {

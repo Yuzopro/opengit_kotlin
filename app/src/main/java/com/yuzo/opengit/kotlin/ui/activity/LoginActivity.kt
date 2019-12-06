@@ -23,11 +23,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     override val layoutId: Int = R.layout.activity_login
 
-    private val loginViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return LoginViewModel(LoginRepository.getInstance()) as T
-        }
-    })[LoginViewModel::class.java]
+    private var loginViewModel: LoginViewModel? = null
 
     companion object {
         fun launch(activity: FragmentActivity) =
@@ -39,6 +35,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     override fun initData(binding: ActivityLoginBinding) {
         super.initData(binding)
+
+        loginViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return LoginViewModel(LoginRepository.getInstance()) as T
+            }
+        })[LoginViewModel::class.java]
 
         binding.model = loginViewModel
     }
@@ -57,7 +59,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         spannable.setSpan(UnderlineSpan(), 0, text.length, 0)
         tv_login_sign_up?.text = spannable
 
-        loginViewModel.loading.observe(this, Observer {
+        loginViewModel?.loading?.observe(this, Observer {
             if (it) {
                 showLoading()
             } else {
@@ -65,7 +67,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             }
         })
 
-        loginViewModel.user.observe(this, Observer {
+        loginViewModel?.user?.observe(this, Observer {
             if (it != null) {
                 MainActivity.launch(this)
             }

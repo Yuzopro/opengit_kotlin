@@ -15,7 +15,7 @@ import java.io.IOException
 class RepoDataSource(val name: String?, params : Map<String, Any>) : BasePositionalDataSource<Repo>() {
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Repo>) {
-        v(TAG, "loadInitial")
+        v(TAG, "loadInitial page is 1")
 
         val request = HttpClient.getInstance().userService.queryRepos(
             name,
@@ -41,12 +41,13 @@ class RepoDataSource(val name: String?, params : Map<String, Any>) : BasePositio
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Repo>) {
-        v(TAG, "loadRange")
         val index = params.startPosition % params.loadSize
         if (index != 0) {
             return
         }
-        val page = params.startPosition / params.loadSize
+        val page = params.startPosition / params.loadSize + 1
+
+        v(TAG, "loadRange page is " + page)
 
         val request = HttpClient.getInstance().userService.queryRepos(
             name,

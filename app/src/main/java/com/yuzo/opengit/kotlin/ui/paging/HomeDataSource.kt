@@ -1,11 +1,10 @@
 package com.yuzo.opengit.kotlin.ui.paging
 
-import androidx.lifecycle.MutableLiveData
 import com.yuzo.lib.log.v
 import com.yuzo.lib.ui.paging.BasePositionalDataSource
+import com.yuzo.lib.ui.repository.NetworkState
 import com.yuzo.opengit.kotlin.http.HttpClient2
 import com.yuzo.opengit.kotlin.http.service.bean.Entrylist
-import com.yuzo.lib.ui.repository.NetworkState
 import java.io.IOException
 
 /**
@@ -40,13 +39,14 @@ class HomeDataSource(params : Map<String, Any>) : BasePositionalDataSource<Entry
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Entrylist>) {
-        v(TAG, "loadRange")
         val index = params.startPosition % params.loadSize
         if (index != 0) {
             return
         }
 
-        val page = params.startPosition / params.loadSize
+        val page = params.startPosition / params.loadSize + 1
+
+        v(TAG, "loadRange page is " + page)
 
         val request = HttpClient2.getInstance().homeService.queryHomes(
             page,

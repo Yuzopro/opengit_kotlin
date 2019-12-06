@@ -45,7 +45,7 @@ class IssueDataSource(params : Map<String, Any>) : BasePositionalDataSource<Issu
         if (index != 0) {
             return
         }
-        val page = params.startPosition / params.loadSize
+        val page = params.startPosition / params.loadSize + 1
 
         val request = HttpClient.getInstance().issueService
             .queryIssues(

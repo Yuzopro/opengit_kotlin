@@ -47,7 +47,7 @@ class EventDataSource(val name: String?, params : Map<String, Any>) : BasePositi
         if (index != 0) {
             return
         }
-        val page = params.startPosition / params.loadSize
+        val page = params.startPosition / params.loadSize + 1
 
         val request = HttpClient.getInstance().userService.queryReceivedEvents(
             name,

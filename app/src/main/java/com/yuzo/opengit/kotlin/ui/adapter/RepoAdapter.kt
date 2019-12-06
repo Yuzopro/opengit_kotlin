@@ -55,7 +55,7 @@ class RepoAdapter : BasePagedAdapter<Repo>(diffCallback) {
                     oldItem: Repo,
                     newItem: Repo
                 ): Boolean {
-                    return oldItem.equals(newItem)
+                    return oldItem == newItem
                 }
             }
     }
