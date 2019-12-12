@@ -10,6 +10,7 @@ import com.yuzo.lib.ui.fragment.BaseWebFragment
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.http.service.bean.Entrylist
 import com.yuzo.opengit.kotlin.ui.adapter.HomeAdapter
+import com.yuzo.opengit.kotlin.ui.adapter.HomeViewHolder
 import com.yuzo.opengit.kotlin.ui.repository.HomeRepository
 import com.yuzo.opengit.kotlin.ui.viewmodel.HomeViewModel
 
@@ -17,7 +18,7 @@ import com.yuzo.opengit.kotlin.ui.viewmodel.HomeViewModel
  * Author: yuzo
  * Date: 2019-09-30
  */
-class HomeFragment : BaseRefreshFragment<Entrylist, HomeAdapter, HomeViewModel>(),
+class HomeFragment : BaseRefreshFragment<Entrylist, HomeViewHolder, HomeAdapter, HomeViewModel>(),
     BasePagedAdapter.OnItemClickListener<Entrylist> {
 
     override var mAdapter: HomeAdapter = HomeAdapter()

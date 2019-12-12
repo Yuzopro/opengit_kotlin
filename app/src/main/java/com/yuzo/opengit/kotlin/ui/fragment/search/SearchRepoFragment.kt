@@ -8,6 +8,7 @@ import com.yuzo.lib.ui.fragment.BaseWebFragment
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.http.service.bean.Repo
 import com.yuzo.opengit.kotlin.ui.adapter.RepoAdapter
+import com.yuzo.opengit.kotlin.ui.adapter.RepoViewHolder
 import com.yuzo.opengit.kotlin.ui.repository.search.SearchRepoRepository
 import com.yuzo.opengit.kotlin.ui.viewmodel.search.SearchRepoViewModel
 
@@ -15,7 +16,7 @@ import com.yuzo.opengit.kotlin.ui.viewmodel.search.SearchRepoViewModel
  * Author: yuzo
  * Date: 2019-11-22
  */
-class SearchRepoFragment : SearchItemFragment<Repo, RepoAdapter, SearchRepoViewModel>() {
+class SearchRepoFragment : SearchItemFragment<Repo, RepoViewHolder, RepoAdapter, SearchRepoViewModel>() {
     override var mAdapter: RepoAdapter  = RepoAdapter()
 
     override fun getViewModel(): SearchRepoViewModel {

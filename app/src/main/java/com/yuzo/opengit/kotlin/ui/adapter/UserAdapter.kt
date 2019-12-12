@@ -3,50 +3,32 @@ package com.yuzo.opengit.kotlin.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
-import com.yuzo.lib.ui.adapter.BaseMultiItemAdapter
+import com.yuzo.lib.image.load
+import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.adapter.BaseViewHolder
-import com.yuzo.lib.ui.adapter.delegate.ItemViewDelegate
-import com.yuzo.opengit.kotlin.databinding.ListItemUserBinding
+import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.http.service.bean.User
 
 /**
  * Author: yuzo
  * Date: 2019-10-12
  */
-class UserAdapter : BaseMultiItemAdapter<User>(diffCallback) {
-    init {
-        addItemViewDelegate(UserViewHolder())
+class UserAdapter : BasePagedAdapter<User, UserViewHolder>(diffCallback) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.list_item_user, parent, false)
+        return UserViewHolder(view)
     }
 
-    private inner class UserViewHolder : ItemViewDelegate<User> {
-        private var mBinding: ListItemUserBinding? = null
-
-        override fun getItemType(): Int = VIEW_TYPE_ISSUE_ITEM
-
-        override fun isForViewType(item: User?, position: Int): Boolean = item?.id != null
-
-        override fun getView(parent: ViewGroup): View {
-            mBinding = ListItemUserBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-
-            return mBinding!!.root
-        }
-
-        override fun convert(holder: BaseViewHolder, item: User?, position: Int) {
-            mBinding?.apply {
-                this.item = item
-                executePendingBindings()
-            }
-        }
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        super.onBindViewHolder(holder, position)
+        holder.binds(getItem(position)!!, position)
     }
 
     companion object {
-        private const val VIEW_TYPE_ISSUE_ITEM = 0
-
         private val diffCallback: DiffUtil.ItemCallback<User> =
             object : DiffUtil.ItemCallback<User>() {
                 override fun areItemsTheSame(
@@ -63,5 +45,15 @@ class UserAdapter : BaseMultiItemAdapter<User>(diffCallback) {
                     return oldItem.equals(newItem)
                 }
             }
+    }
+}
+
+class UserViewHolder(view: View) : BaseViewHolder(view) {
+    private val ivAvatar: ImageView = view.findViewById(R.id.iv_repo_avatar)
+    private val tvOwnerName: TextView = view.findViewById(R.id.tv_repo_user_name)
+
+    fun binds(data: User, position: Int) {
+        load(ivAvatar.context, ivAvatar, data.avatarUrl)
+        tvOwnerName.text = data.login
     }
 }

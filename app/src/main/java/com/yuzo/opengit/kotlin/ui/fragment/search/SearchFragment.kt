@@ -122,7 +122,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
         val currentItem = view_pager_search?.currentItem
         val fragment = getCurrentFragment(currentItem?:0)
-        if (fragment is SearchItemFragment<*, *, *>) {
+        if (fragment is SearchItemFragment<*, *, *, *>) {
             fragment.doSearch(text)
         }
     }

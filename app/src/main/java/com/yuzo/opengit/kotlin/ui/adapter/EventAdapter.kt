@@ -9,13 +9,16 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
+import com.yuzo.lib.image.load
+import com.yuzo.lib.tool.getMultiTime
+import com.yuzo.lib.tool.transTimeStamp
 import com.yuzo.lib.ui.adapter.BasePagedAdapter
 import com.yuzo.lib.ui.adapter.BaseViewHolder
-import com.yuzo.opengit.kotlin.databinding.ListItemEventBinding
-import com.yuzo.opengit.kotlin.databinding.ListItemHomeBinding
+import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.http.service.bean.Event
 import com.yuzo.opengit.kotlin.http.service.bean.Type
 
@@ -23,24 +26,17 @@ import com.yuzo.opengit.kotlin.http.service.bean.Type
  * Author: yuzo
  * Date: 2019-10-11
  */
-class EventAdapter : BasePagedAdapter<Event>(diffCallback) {
-    private var mBinding: ListItemEventBinding? = null
+class EventAdapter : BasePagedAdapter<Event, EventViewHolder>(diffCallback) {
 
-    override fun getView(parent: ViewGroup, viewType: Int): View {
-        mBinding = ListItemEventBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-
-        return mBinding!!.root
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.list_item_event, parent, false)
+        return EventViewHolder(view)
     }
 
-    override fun setItem(holder: BaseViewHolder, item: Event?, position: Int) {
-        mBinding?.apply {
-            this.item = item
-            executePendingBindings()
-        }
+    override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
+        super.onBindViewHolder(holder, position)
+        holder.binds(getItem(position)!!, position)
     }
 
     companion object {
@@ -63,6 +59,19 @@ class EventAdapter : BasePagedAdapter<Event>(diffCallback) {
     }
 }
 
+class EventViewHolder(view: View) : BaseViewHolder(view) {
+    private val ivAvatar: ImageView = view.findViewById(R.id.iv_event_avatar)
+    private val tvOwnerName: TextView = view.findViewById(R.id.tv_event_user_name)
+    private val tvDate: TextView = view.findViewById(R.id.tv_event_date)
+    private val tvContent: TextView = view.findViewById(R.id.tv_event_content)
+
+    fun binds(data: Event, position: Int) {
+        load(ivAvatar.context, ivAvatar, data.actor.avatarUrl)
+        tvOwnerName.text = data.actor.displayLogin
+        tvDate.text = getMultiTime(transTimeStamp(data.created_at))
+        tvContent.text = getTitle(tvContent, data)
+    }
+}
 @BindingAdapter("event_title")
 fun bindEventTitle(view: TextView, data: Event) {
     view.text = getTitle(view, data)

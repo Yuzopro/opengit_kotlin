@@ -7,5 +7,5 @@ import androidx.recyclerview.widget.RecyclerView
  * Author: yuzo
  * Date: 2019-10-10
  */
-class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+open class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 }

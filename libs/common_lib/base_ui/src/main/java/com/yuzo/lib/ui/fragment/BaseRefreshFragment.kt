@@ -3,9 +3,11 @@ package com.yuzo.lib.ui.fragment
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.paging.PagedListAdapter
 import com.yuzo.lib.tool.ToastUtil
 import com.yuzo.lib.ui.R
 import com.yuzo.lib.ui.adapter.BasePagedAdapter
+import com.yuzo.lib.ui.adapter.BaseViewHolder
 import com.yuzo.lib.ui.databinding.BaseRefreshLayoutBinding
 import com.yuzo.lib.ui.repository.NetworkState
 import com.yuzo.lib.ui.repository.Status
@@ -16,7 +18,7 @@ import kotlinx.android.synthetic.main.base_refresh_layout.*
  * Author: yuzo
  * Date: 2019-10-10
  */
-abstract class BaseRefreshFragment<T, A : BasePagedAdapter<T>, V : BaseRefreshViewModel<T>> :
+abstract class BaseRefreshFragment<T, VH : BaseViewHolder, A : PagedListAdapter<T, VH>, V : BaseRefreshViewModel<T>> :
     BaseLazyFragment<BaseRefreshLayoutBinding>() {
 
     abstract var mAdapter: A

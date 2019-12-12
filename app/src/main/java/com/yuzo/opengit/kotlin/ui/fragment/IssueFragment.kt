@@ -19,6 +19,7 @@ import com.yuzo.opengit.kotlin.sp.filterSp
 import com.yuzo.opengit.kotlin.sp.sortSp
 import com.yuzo.opengit.kotlin.sp.stateSp
 import com.yuzo.opengit.kotlin.ui.adapter.IssueAdapter
+import com.yuzo.opengit.kotlin.ui.adapter.IssueViewHolder
 import com.yuzo.opengit.kotlin.ui.repository.IssueRepository
 import com.yuzo.opengit.kotlin.ui.viewmodel.IssueViewModel
 
@@ -26,7 +27,7 @@ import com.yuzo.opengit.kotlin.ui.viewmodel.IssueViewModel
  * Author: yuzo
  * Date: 2019-10-12
  */
-class IssueFragment : BaseRefreshFragment<Issue, IssueAdapter, IssueViewModel>(),
+class IssueFragment : BaseRefreshFragment<Issue, IssueViewHolder, IssueAdapter, IssueViewModel>(),
     BasePagedAdapter.OnItemClickListener<Issue> {
 
     private val filter = arrayOf("assigned", "created", "mentioned", "subscribed", "all")

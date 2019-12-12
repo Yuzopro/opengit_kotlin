@@ -10,6 +10,7 @@ import com.yuzo.lib.ui.fragment.BaseWebFragment
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.http.service.bean.Repo
 import com.yuzo.opengit.kotlin.ui.adapter.RepoAdapter
+import com.yuzo.opengit.kotlin.ui.adapter.RepoViewHolder
 import com.yuzo.opengit.kotlin.ui.repository.RepoRepository
 import com.yuzo.opengit.kotlin.ui.viewmodel.RepoViewModel
 
@@ -18,10 +19,10 @@ import com.yuzo.opengit.kotlin.ui.viewmodel.RepoViewModel
  * Author: yuzo
  * Date: 2019-09-30
  */
-class RepoFragment : BaseRefreshFragment<Repo, RepoAdapter, RepoViewModel>(),
+class RepoFragment : BaseRefreshFragment<Repo, RepoViewHolder, RepoAdapter, RepoViewModel>(),
     BasePagedAdapter.OnItemClickListener<Repo> {
 
-    override var mAdapter: RepoAdapter = RepoAdapter()
+    override var mAdapter: RepoAdapter= RepoAdapter()
 
     override fun initView() {
         super.initView()

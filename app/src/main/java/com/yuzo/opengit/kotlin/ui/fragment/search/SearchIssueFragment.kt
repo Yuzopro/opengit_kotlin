@@ -8,6 +8,7 @@ import com.yuzo.lib.ui.fragment.BaseWebFragment
 import com.yuzo.opengit.kotlin.R
 import com.yuzo.opengit.kotlin.http.service.bean.Issue
 import com.yuzo.opengit.kotlin.ui.adapter.IssueAdapter
+import com.yuzo.opengit.kotlin.ui.adapter.IssueViewHolder
 import com.yuzo.opengit.kotlin.ui.repository.search.SearchIssueRepository
 import com.yuzo.opengit.kotlin.ui.viewmodel.search.SearchIssueViewModel
 
@@ -15,7 +16,7 @@ import com.yuzo.opengit.kotlin.ui.viewmodel.search.SearchIssueViewModel
  * Author: yuzo
  * Date: 2019-10-12
  */
-class SearchIssueFragment : SearchItemFragment<Issue, IssueAdapter, SearchIssueViewModel>() {
+class SearchIssueFragment : SearchItemFragment<Issue, IssueViewHolder, IssueAdapter, SearchIssueViewModel>() {
     override var mAdapter: IssueAdapter = IssueAdapter()
 
     override fun getViewModel(): SearchIssueViewModel {
