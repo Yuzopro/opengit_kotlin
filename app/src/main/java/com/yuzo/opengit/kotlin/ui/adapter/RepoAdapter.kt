@@ -59,7 +59,7 @@ class RepoViewHolder(private val view: View) : BaseViewHolder(view) {
     private val tvFork: TextView = view.findViewById(R.id.tv_repo_fork)
 
     fun binds(data: Repo, position: Int) {
-        load(ivAvatar.context, ivAvatar, data?.archive_url)
+        load(ivAvatar.context, ivAvatar, data.owner.avatarUrl)
 
         tvOwnerName.text = data.owner.login
 
