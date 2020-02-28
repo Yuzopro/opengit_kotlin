@@ -80,11 +80,11 @@ git checkout -b master origin/master
 - [AgentWeb](https://github.com/Justson/AgentWeb)
 
 ## Android版安装包：
-[点击下载](https://github.com/Yuzopro/opengit_flutter/releases/download/1.2.0/opengit-release-1.2.0.apk)
+[点击下载](https://github.com/Yuzopro/opengit_kotlin/releases/download/1.0.0/opengit-release-1.0.0.apk)
 
 扫码下载
 
-![](https://raw.githubusercontent.com/Yuzopro/image/master/flutter/flutter_opengit_3.png)
+![](https://raw.githubusercontent.com/Yuzopro/image/master/android/opengit-kotlin-jetpack-download.png)
 
 ## Thanks For
 
